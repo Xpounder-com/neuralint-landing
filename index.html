@@ -92,18 +92,28 @@
   .nav-links a { transition: color .18s ease, opacity .18s ease; }
   .nav-links a:hover { color: #faf7f0; opacity: 1; }
   .nav-spacer { flex: 1; }
-  .nav-cta { display: flex; gap: 10px; align-items: center; font-size: 13px; }
+  .nav-cta { display: flex; gap: 10px; align-items: center; font-size: 13px; min-width: 0; }
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
+    min-height: 36px;
+    box-sizing: border-box;
     font-size: 12.5px; padding: 8px 14px;
     border-radius: 2px; border: 1px solid rgba(250,247,240,0.32);
     background: rgba(13,10,8,0.24); color: #faf7f0; cursor: pointer;
     font-family: inherit; font-weight: 500; letter-spacing: 0.01em;
+    white-space: nowrap;
     transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
   }
   .btn:hover { background: rgba(210,74,46,0.92); border-color: #d24a2e; color: #fff; transform: translateY(-1px); }
   .btn.solid { background: #faf7f0; color: #0d0a08; border-color: #faf7f0; }
   .btn.solid:hover { background: #d24a2e; border-color: #d24a2e; color: #fff; }
+  .btn-label-short { display: none; }
+  .nav-links a:focus-visible,
+  .btn:focus-visible,
+  .dots button:focus-visible {
+    outline: 2px solid #f2b37a;
+    outline-offset: 4px;
+  }
 
   /* Bottom HUD — scroll progress + scene label */
   .hud {
@@ -198,7 +208,7 @@
   .demo-access-card { width: min(640px, 100%); }
   .partner-form-head {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 18px;
     padding: 30px 32px 22px;
     border-bottom: 1px solid rgba(13,10,8,0.14);
@@ -224,6 +234,10 @@
     line-height: 1.45;
   }
   .partner-form-close {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 38px; height: 38px;
     border: 1px solid rgba(13,10,8,0.2);
     background: transparent;
@@ -232,6 +246,23 @@
     font: 700 12px "JetBrains Mono", monospace;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    text-indent: -999px;
+    overflow: hidden;
+  }
+  .partner-form-close::before,
+  .partner-form-close::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    background: currentColor;
+  }
+  .partner-form-close::before { transform: rotate(45deg); }
+  .partner-form-close::after { transform: rotate(-45deg); }
+  .partner-form-close:hover,
+  .partner-form-close:focus-visible {
+    border-color: #d24a2e;
+    color: #d24a2e;
   }
   .partner-form {
     min-height: 0;
@@ -286,12 +317,19 @@
     border-top: 1px solid rgba(13,10,8,0.14);
     box-shadow: 0 -18px 32px rgba(13,10,8,0.06);
   }
+  .partner-form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
   .partner-form-submit,
   .partner-form-secondary {
     min-height: 46px;
     border-radius: 0;
     cursor: pointer;
     font: 700 14px Inter, sans-serif;
+    transition: background .18s ease, border-color .18s ease, color .18s ease, opacity .18s ease, transform .18s ease;
   }
   .partner-form-submit {
     min-width: 220px;
@@ -305,12 +343,45 @@
     color: #0d0a08;
     padding: 0 18px;
   }
+  .partner-form-submit:hover:not(:disabled),
+  .demo-access-open:hover,
+  .proof-viewer-primary:hover {
+    background: #d24a2e;
+    border-color: #d24a2e;
+    color: #fff;
+    transform: translateY(-1px);
+  }
+  .partner-form-secondary:hover,
+  .proof-viewer-secondary:hover,
+  .proof-viewer-close:hover {
+    border-color: rgba(13,10,8,0.44);
+    background: rgba(13,10,8,0.055);
+  }
+  .partner-form-submit:disabled {
+    cursor: progress;
+    opacity: 0.68;
+  }
+  .partner-form-submit:focus-visible,
+  .partner-form-secondary:focus-visible,
+  .demo-access-open:focus-visible,
+  .partner-form-field input:focus-visible,
+  .partner-form-field select:focus-visible,
+  .partner-form-field textarea:focus-visible,
+  .proof-viewer-actions button:focus-visible,
+  .partner-form-close:focus-visible {
+    outline: 2px solid #d24a2e;
+    outline-offset: 3px;
+  }
   .partner-form-status {
+    margin: 0;
+    flex: 1;
+    min-width: 240px;
     min-height: 22px;
     color: rgba(13,10,8,0.66);
     font-size: 14px;
     line-height: 1.4;
   }
+  .partner-form-status[data-state="pending"] { color: #7a5a44; }
   .partner-form-status[data-state="success"] { color: #2d6a3e; }
   .partner-form-status[data-state="error"] { color: #a83232; }
   .demo-access-form,
@@ -364,6 +435,7 @@
     background: #0d0a08;
     color: #faf7f0;
     font: 700 14px Inter, sans-serif;
+    transition: background .18s ease, border-color .18s ease, color .18s ease, opacity .18s ease, transform .18s ease;
   }
   .demo-access-open[aria-disabled="true"] {
     opacity: 0.55;
@@ -435,6 +507,7 @@
     cursor: pointer;
     font: 700 13px Inter, sans-serif;
     padding: 0 16px;
+    transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
   }
   .proof-viewer-primary {
     border: 1px solid #0d0a08;
@@ -460,7 +533,7 @@
   .proof-viewer-media {
     width: 100%;
     aspect-ratio: 16 / 10;
-    min-height: 360px;
+    min-height: min(360px, 56vh);
     background-color: #faf7f0;
     background-repeat: no-repeat;
     background-size: calc(100% * var(--preview-zoom, 1.18)) auto;
@@ -495,11 +568,20 @@
       padding: 0 14px;
       gap: 12px;
     }
-    .logo { width: 122px; height: 36px; padding: 0 7px; }
+    .logo { width: 108px; height: 36px; padding: 0 7px; }
     .logo img { width: 100%; height: 100%; }
     .nav-links { display: none; }
-    .nav-cta .btn:not(.solid) { display: none; }
-    .btn { font-size: 11px; padding: 7px 10px; }
+    .nav-spacer { min-width: 0; }
+    .nav-cta { gap: 6px; }
+    .btn {
+      min-width: 58px;
+      justify-content: center;
+      font-size: 11px;
+      padding: 7px 9px;
+    }
+    .btn.solid { min-width: 66px; }
+    .btn-label-full { display: none; }
+    .btn-label-short { display: inline; }
     .dots {
       left: 16px; right: 16px; top: auto; bottom: 50px;
       transform: none;
@@ -523,12 +605,19 @@
     }
     .hud .ann span:last-child { display: none; }
     .hud .progress { max-width: none; }
-    .hud .scene-label { font-size: 12px; white-space: nowrap; }
+    .hud .scene-label {
+      min-width: 0;
+      max-width: 34vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 12px;
+      white-space: nowrap;
+    }
     .partner-form-shell,
     .demo-access-shell { align-items: stretch; padding: 12px; }
     .partner-form-card { max-height: calc(100vh - 24px); }
-    .partner-form-head { padding: 22px 18px 16px; }
-    .partner-form-title { font-size: 40px; }
+    .partner-form-head { padding: 22px 18px 16px; gap: 12px; }
+    .partner-form-title { font-size: clamp(34px, 11vw, 40px); overflow-wrap: anywhere; }
     .partner-form-copy { font-size: 14px; }
     .partner-form-grid {
       grid-template-columns: 1fr;
@@ -538,6 +627,11 @@
       align-items: stretch;
       flex-direction: column-reverse;
       padding: 14px 18px;
+    }
+    .partner-form-status { min-width: 0; }
+    .partner-form-buttons {
+      width: 100%;
+      flex-direction: column-reverse;
     }
     .partner-form-submit,
     .partner-form-secondary { width: 100%; }
@@ -557,20 +651,38 @@
       border-right: 0;
       border-bottom: 1px solid rgba(13,10,8,0.14);
     }
-    .proof-viewer-title { font-size: 42px; }
+    .proof-viewer-title { font-size: clamp(36px, 12vw, 42px); }
     .proof-viewer-body { font-size: 14px; }
     .proof-viewer-actions { flex-direction: column; }
     .proof-viewer-actions button { width: 100%; }
     .proof-viewer-frame { padding: 12px; min-height: 0; }
     .proof-viewer-media {
-      min-height: 360px;
+      min-height: min(360px, 46vh);
       background-size: calc(100% * var(--preview-mobile-zoom, 1.45)) auto;
     }
   }
 
+  @media (max-width: 380px) {
+    .nav { padding: 0 10px; gap: 8px; }
+    .logo { width: 96px; }
+    .btn { min-width: 52px; padding-inline: 7px; }
+    .btn.solid { min-width: 60px; }
+  }
+
+  @media (hover: none) {
+    #stage,
+    #scroll-proxy { cursor: auto; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .hud .ann .dot { animation: none; }
-    .btn, .dots button .d, .hud .progress .fill { transition: none; }
+    .btn,
+    .dots button .d,
+    .hud .progress .fill,
+    .partner-form-submit,
+    .partner-form-secondary,
+    .demo-access-open,
+    .proof-viewer-actions button { transition: none; }
   }
 
 </style>
@@ -587,9 +699,9 @@
   <p>Connectors include Salesforce, QuickBooks, HubSpot, Stripe, NetSuite, Anrok, DocuSign, Gmail, Mercury, Plaid, and Slack.</p>
 </main>
 
-<header class="nav">
+<header class="nav" aria-label="Primary">
   <a href="#" class="logo" aria-label="Index home"><img src="%BASE_URL%assets/brand/index-logo.svg" alt="" aria-hidden="true"/></a>
-  <nav class="nav-links">
+  <nav class="nav-links" aria-label="Landing sections">
     <a href="#" data-go="1">Blueprints</a>
     <a href="#" data-go="2">Platform</a>
     <a href="#" data-go="3">Proof</a>
@@ -597,16 +709,16 @@
   </nav>
   <div class="nav-spacer"></div>
   <div class="nav-cta">
-    <a href="#demo-access" class="btn" data-open-demo-access>Try live demo</a>
-    <a href="#partner-form" class="btn solid" data-go="5" data-open-partner-form>Start application →</a>
+    <a href="#demo-access" class="btn" data-open-demo-access aria-label="Try live demo"><span class="btn-label-full">Try live demo</span><span class="btn-label-short" aria-hidden="true">Demo</span></a>
+    <a href="#partner-form" class="btn solid" data-go="5" data-open-partner-form aria-label="Start application"><span class="btn-label-full">Start application →</span><span class="btn-label-short" aria-hidden="true">Apply</span></a>
   </div>
 </header>
 
-<div id="stage"></div>
+<div id="stage" aria-hidden="true"></div>
 
 <div id="scroll-proxy"><div class="spacer"></div></div>
 
-<aside class="dots" id="dots"></aside>
+<aside class="dots" id="dots" aria-label="Scene navigation"></aside>
 
 <footer class="hud">
   <span class="ann"><span class="dot"></span><span>Index · Partner '26</span></span>
@@ -616,17 +728,17 @@
   <span class="hud-spacer" style="flex: 1;"></span>
 </footer>
 
-<section class="partner-form-shell" id="partner-form-modal" role="dialog" aria-modal="true" aria-labelledby="partner-form-title" aria-hidden="true" hidden>
+<section class="partner-form-shell" id="partner-form-modal" role="dialog" aria-modal="true" aria-labelledby="partner-form-title" aria-describedby="partner-form-copy" aria-hidden="true" hidden>
   <div class="partner-form-card">
     <div class="partner-form-head">
       <div>
         <p class="partner-form-kicker">Partner application</p>
         <h2 class="partner-form-title" id="partner-form-title">Tell us where Index fits.</h2>
-        <p class="partner-form-copy">Share your email and partner details. We will follow up with fit, rollout path, and next steps.</p>
+        <p class="partner-form-copy" id="partner-form-copy">Share your email and partner details. We will follow up with fit, rollout path, and next steps.</p>
       </div>
       <button class="partner-form-close" type="button" data-close-partner-form aria-label="Close partner application form">Close</button>
     </div>
-    <form class="partner-form" id="partner-form" data-capture-target="google-sheets">
+    <form class="partner-form" id="partner-form" data-capture-target="google-sheets" aria-describedby="partner-form-status">
       <div class="partner-form-grid">
         <div class="partner-form-field">
           <label for="partner-name">Name</label>
@@ -666,8 +778,8 @@
         </div>
       </div>
       <div class="partner-form-actions">
-        <p class="partner-form-status" id="partner-form-status" role="status" aria-live="polite"></p>
-        <div>
+        <p class="partner-form-status" id="partner-form-status" role="status" aria-live="polite" aria-atomic="true"></p>
+        <div class="partner-form-buttons">
           <button class="partner-form-secondary" type="button" data-close-partner-form>Keep browsing</button>
           <button class="partner-form-submit" type="submit">Submit partner details</button>
         </div>
@@ -676,28 +788,28 @@
   </div>
 </section>
 
-<section class="demo-access-shell" id="demo-access-modal" role="dialog" aria-modal="true" aria-labelledby="demo-access-title" aria-hidden="true" data-demo-state="capture" hidden>
+<section class="demo-access-shell" id="demo-access-modal" role="dialog" aria-modal="true" aria-labelledby="demo-access-title" aria-describedby="demo-access-copy" aria-hidden="true" data-demo-state="capture" hidden>
   <div class="partner-form-card demo-access-card">
     <div class="partner-form-head">
       <div>
         <p class="partner-form-kicker">Live demo</p>
         <h2 class="partner-form-title" id="demo-access-title">See the workspace.</h2>
-        <p class="partner-form-copy">Enter your work email once. We will record demo access, reveal the workspace access code, and send you to the product login screen.</p>
+        <p class="partner-form-copy" id="demo-access-copy">Enter your work email once. We will record demo access, reveal the workspace access code, and send you to the product login screen.</p>
       </div>
       <button class="partner-form-close" type="button" data-close-demo-access aria-label="Close live demo access form">Close</button>
     </div>
-    <form class="demo-access-form" id="demo-access-form" data-capture-target="google-sheets">
+    <form class="demo-access-form" id="demo-access-form" data-capture-target="google-sheets" aria-describedby="demo-access-status">
       <div class="partner-form-field">
         <label for="demo-access-email">Work email</label>
         <input id="demo-access-email" name="email" type="email" autocomplete="email" required/>
       </div>
-      <p class="partner-form-status" id="demo-access-status" role="status" aria-live="polite"></p>
+      <p class="partner-form-status" id="demo-access-status" role="status" aria-live="polite" aria-atomic="true"></p>
       <div class="demo-access-actions">
         <button class="partner-form-secondary" type="button" data-close-demo-access>Keep browsing</button>
         <button class="partner-form-submit" type="submit">Continue to demo</button>
       </div>
     </form>
-    <div class="demo-access-result" aria-live="polite">
+    <div class="demo-access-result" role="status" aria-live="polite" aria-atomic="true">
       <div class="demo-access-code">
         <span>Workspace access code</span>
         <strong id="demo-access-code">Ready</strong>
@@ -711,7 +823,7 @@
   </div>
 </section>
 
-<section class="proof-viewer-shell" id="proof-viewer-modal" role="dialog" aria-modal="true" aria-labelledby="proof-viewer-title" aria-hidden="true" hidden>
+<section class="proof-viewer-shell" id="proof-viewer-modal" role="dialog" aria-modal="true" aria-labelledby="proof-viewer-title" aria-describedby="proof-viewer-body proof-viewer-meta" aria-hidden="true" hidden>
   <div class="proof-viewer-card">
     <div class="proof-viewer-copy">
       <p class="proof-viewer-kicker" id="proof-viewer-kicker">Workflow preview</p>
@@ -792,6 +904,19 @@ window.THREE = THREE;
     demoAccessStatus.textContent = message;
     demoAccessStatus.dataset.state = state;
   }
+  function setSubmitPending(form, button, pending, pendingText) {
+    if (!(button instanceof HTMLButtonElement)) return;
+    form.setAttribute('aria-busy', pending ? 'true' : 'false');
+    if (pending) {
+      button.dataset.idleText = button.textContent || '';
+      button.textContent = pendingText;
+      button.disabled = true;
+    } else {
+      button.disabled = false;
+      if (button.dataset.idleText) button.textContent = button.dataset.idleText;
+      delete button.dataset.idleText;
+    }
+  }
   function readStoredDemoAccess() {
     try {
       const parsed = JSON.parse(window.localStorage.getItem(DEMO_ACCESS_STORAGE_KEY) || 'null');
@@ -868,16 +993,16 @@ window.THREE = THREE;
     });
   }
 
-  function closePartnerForm() {
+  function closePartnerForm({ restoreFocus = true } = {}) {
     partnerModal.hidden = true;
     partnerModal.setAttribute('aria-hidden', 'true');
-    lastPartnerTrigger?.focus?.();
+    if (restoreFocus) lastPartnerTrigger?.focus?.();
   }
 
   function openDemoAccess(trigger = document.activeElement) {
     const triggerIsVisible = trigger instanceof HTMLElement && trigger.offsetParent !== null;
     if (!proofViewerModal.hidden) closeProofViewer({ restoreFocus: false });
-    if (!partnerModal.hidden) closePartnerForm();
+    if (!partnerModal.hidden) closePartnerForm({ restoreFocus: false });
     lastDemoAccessTrigger = triggerIsVisible ? trigger : null;
     demoAccessModal.hidden = false;
     demoAccessModal.setAttribute('aria-hidden', 'false');
@@ -930,14 +1055,14 @@ window.THREE = THREE;
       e.preventDefault();
       const sceneIndex = Number.parseInt(el.dataset.go ?? '', 10);
       if (Number.isFinite(sceneIndex)) {
-        proxy.scrollTo({ top: sceneTop(sceneIndex), behavior: 'smooth' });
+        scrollToScene(sceneIndex);
       }
       openPartnerForm(el);
     });
   });
 
   document.querySelectorAll('[data-close-partner-form]').forEach(el => {
-    el.addEventListener('click', closePartnerForm);
+    el.addEventListener('click', () => closePartnerForm());
   });
 
   document.querySelectorAll('[data-open-demo-access]').forEach(el => {
@@ -984,8 +1109,8 @@ window.THREE = THREE;
 
     const submitButton = partnerForm.querySelector('.partner-form-submit');
     const payload = partnerFormPayload();
-    submitButton.disabled = true;
-    setPartnerFormStatus('Capturing partner details...', '');
+    setSubmitPending(partnerForm, submitButton, true, 'Submitting...');
+    setPartnerFormStatus('Capturing partner details...', 'pending');
 
     try {
       const response = await fetch(PARTNER_LEAD_ENDPOINT, {
@@ -1003,7 +1128,7 @@ window.THREE = THREE;
       console.error(error);
       setPartnerFormStatus('Could not capture the form. Please try again.', 'error');
     } finally {
-      submitButton.disabled = false;
+      setSubmitPending(partnerForm, submitButton, false);
     }
   });
 
@@ -1013,8 +1138,8 @@ window.THREE = THREE;
 
     const submitButton = demoAccessForm.querySelector('.partner-form-submit');
     const payload = demoAccessPayload();
-    submitButton.disabled = true;
-    setDemoAccessStatus('Recording demo access...', '');
+    setSubmitPending(demoAccessForm, submitButton, true, 'Recording...');
+    setDemoAccessStatus('Recording demo access...', 'pending');
 
     try {
       const response = await fetch(PARTNER_LEAD_ENDPOINT, {
@@ -1044,7 +1169,7 @@ window.THREE = THREE;
         ? error.message
         : 'Could not reveal demo access. Please try again.', 'error');
     } finally {
-      submitButton.disabled = false;
+      setSubmitPending(demoAccessForm, submitButton, false);
     }
   });
 
@@ -2257,6 +2382,12 @@ window.THREE = THREE;
     const maxScroll = Math.max(0, proxy.scrollHeight - window.innerHeight);
     return maxScroll <= 0 ? 0 : i * maxScroll / Math.max(1, TOTAL_SCENES - 1);
   }
+  function scrollToScene(i) {
+    proxy.scrollTo({
+      top: sceneTop(i),
+      behavior: reducedMotion ? 'auto' : 'smooth',
+    });
+  }
   function updateViewport() {
     const W = window.innerWidth, H = window.innerHeight;
     camera.aspect = W / H;
@@ -2441,9 +2572,11 @@ window.THREE = THREE;
   SCENES.forEach((sp, i) => {
     const b = document.createElement('button');
     const idx = String(i + 1).padStart(2, '0');
+    b.type = 'button';
+    b.setAttribute('aria-label', `Go to ${sp.label} section`);
     b.innerHTML = `<span>${idx}  ${sp.label}</span><span class="d"></span>`;
     b.addEventListener('click', () => {
-      proxy.scrollTo({ top: sceneTop(i), behavior: 'smooth' });
+      scrollToScene(i);
     });
     dotsEl.appendChild(b);
   });
@@ -2452,7 +2585,7 @@ window.THREE = THREE;
       if (a.hasAttribute('data-open-partner-form')) return;
       e.preventDefault();
       const i = parseInt(a.dataset.go, 10);
-      proxy.scrollTo({ top: sceneTop(i), behavior: 'smooth' });
+      scrollToScene(i);
     });
   });
 
@@ -2703,6 +2836,8 @@ window.THREE = THREE;
     fillEl.style.width = (scrollNorm * 100) + '%';
     document.querySelectorAll('.dots button').forEach((b, i) => {
       b.classList.toggle('active', i === idx);
+      if (i === idx) b.setAttribute('aria-current', 'step');
+      else b.removeAttribute('aria-current');
     });
 
     renderer.render(scene, camera);

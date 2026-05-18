@@ -438,11 +438,22 @@ page.on('response', (response) => {
   }
 });
 
-try {
-  await page.goto(landingUrl, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+const waitForLandingReady = async () => {
   await page.waitForFunction(() => window.THREE && document.querySelector('#stage canvas'), null, { timeout: 30_000 });
   await page.waitForFunction(() => document.querySelector('#scene-label')?.textContent !== 'Loading...', null, { timeout: 10_000 });
   await page.waitForFunction(() => document.querySelector('.logo img')?.complete, null, { timeout: 10_000 });
+};
+
+const expectNoHorizontalOverflow = async (context) => {
+  const hasOverflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
+  if (hasOverflow) {
+    throw new Error(`Horizontal overflow detected in ${context}`);
+  }
+};
+
+try {
+  await page.goto(landingUrl, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+  await waitForLandingReady();
 
   const logoBox = await page.locator('.logo img').boundingBox();
   if (!logoBox || logoBox.width < 70 || logoBox.height < 20) {
@@ -640,10 +651,143 @@ try {
   await page.keyboard.press('Escape');
   await page.waitForFunction(() => document.querySelector('#partner-form-modal')?.hidden, null, { timeout: 3_000 });
 
-  const hasOverflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
-  if (hasOverflow) {
-    throw new Error('Horizontal overflow detected');
+  await expectNoHorizontalOverflow('desktop viewport');
+
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto(landingUrl, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+  await waitForLandingReady();
+  await page.evaluate(() => window.localStorage.clear());
+
+  const mobileNavState = await page.evaluate(() => {
+    const visible = (el) => {
+      const rect = el?.getBoundingClientRect();
+      const style = el ? window.getComputedStyle(el) : null;
+      return !!rect && !!style && style.display !== 'none' && rect.width > 0 && rect.height > 0
+        && rect.left >= 0 && rect.right <= window.innerWidth;
+    };
+    const demo = document.querySelector('.nav [data-open-demo-access]');
+    const apply = document.querySelector('.nav .btn.solid[data-open-partner-form]');
+    const dots = [...document.querySelectorAll('.dots button')];
+    demo?.focus();
+    return {
+      demoVisible: visible(demo),
+      applyVisible: visible(apply),
+      demoText: demo?.innerText.trim(),
+      applyText: apply?.innerText.trim(),
+      focusOutline: window.getComputedStyle(demo).outlineStyle,
+      dotsNamed: dots.length === 6 && dots.every((dot) => dot.getAttribute('aria-label')?.startsWith('Go to ')),
+      activeCurrentCount: dots.filter((dot) => dot.getAttribute('aria-current') === 'step').length,
+    };
+  });
+  if (
+    !mobileNavState.demoVisible
+    || !mobileNavState.applyVisible
+    || mobileNavState.demoText !== 'Demo'
+    || mobileNavState.applyText !== 'Apply'
+    || mobileNavState.focusOutline === 'none'
+    || !mobileNavState.dotsNamed
+    || mobileNavState.activeCurrentCount !== 1
+  ) {
+    throw new Error(`Mobile navigation/accessibility state was unexpected: ${JSON.stringify(mobileNavState)}`);
   }
+  await expectNoHorizontalOverflow('mobile first viewport');
+
+  await page.click('.nav [data-open-demo-access]');
+  await page.waitForFunction(() => !document.querySelector('#demo-access-modal')?.hidden, null, { timeout: 3_000 });
+  await page.waitForFunction(() => document.activeElement?.id === 'demo-access-email', null, { timeout: 3_000 });
+  const mobileDemoState = await page.evaluate(() => {
+    const modal = document.querySelector('#demo-access-modal');
+    const card = modal?.querySelector('.partner-form-card');
+    const submit = modal?.querySelector('.partner-form-submit');
+    const rect = submit?.getBoundingClientRect();
+    const cardRect = card?.getBoundingClientRect();
+    return {
+      describedBy: modal?.getAttribute('aria-describedby'),
+      activeId: document.activeElement?.id,
+      submitVisible: !!rect && rect.width > 0 && rect.bottom <= window.innerHeight,
+      cardFits: !!cardRect && cardRect.top >= 0 && cardRect.bottom <= window.innerHeight,
+    };
+  });
+  if (
+    mobileDemoState.describedBy !== 'demo-access-copy'
+    || mobileDemoState.activeId !== 'demo-access-email'
+    || !mobileDemoState.submitVisible
+    || !mobileDemoState.cardFits
+  ) {
+    throw new Error(`Mobile demo modal state was unexpected: ${JSON.stringify(mobileDemoState)}`);
+  }
+  await page.fill('#demo-access-email', 'mobile.viewer@northstar.test');
+  await page.click('#demo-access-modal .partner-form-submit');
+  await page.waitForFunction(() => document.querySelector('#demo-access-modal')?.dataset.demoState === 'ready', null, { timeout: 3_000 });
+  const mobileDemoReadyState = await page.evaluate(() => ({
+    code: document.querySelector('#demo-access-code')?.textContent,
+    copy: document.querySelector('#demo-access-result-copy')?.textContent,
+    href: document.querySelector('#demo-access-open')?.getAttribute('href'),
+  }));
+  if (
+    mobileDemoReadyState.code !== smokeDemoCode
+    || !mobileDemoReadyState.copy?.includes('mobile.viewer@northstar.test')
+    || mobileDemoReadyState.href !== expectedDemoUrl
+  ) {
+    throw new Error(`Mobile demo ready state was unexpected: ${JSON.stringify(mobileDemoReadyState)}`);
+  }
+  const [mobileDemoPage] = await Promise.all([
+    page.waitForEvent('popup', { timeout: 3_000 }),
+    page.click('#demo-access-open'),
+  ]);
+  await mobileDemoPage.waitForLoadState('domcontentloaded', { timeout: 5_000 });
+  if (mobileDemoPage.url() !== expectedDemoOpenUrl) {
+    throw new Error(`Mobile demo open target was unexpected: ${mobileDemoPage.url()}`);
+  }
+  await mobileDemoPage.close();
+  await page.keyboard.press('Escape');
+  await page.waitForFunction(() => document.querySelector('#demo-access-modal')?.hidden, null, { timeout: 3_000 });
+
+  await page.click('.nav .btn.solid[data-go="5"][data-open-partner-form]');
+  await page.waitForFunction(() => !document.querySelector('#partner-form-modal')?.hidden, null, { timeout: 3_000 });
+  await page.waitForFunction(() => document.activeElement?.id === 'partner-email', null, { timeout: 3_000 });
+  const mobilePartnerState = await page.evaluate(() => {
+    const modal = document.querySelector('#partner-form-modal');
+    const submit = modal?.querySelector('.partner-form-submit');
+    const actions = modal?.querySelector('.partner-form-actions');
+    const submitRect = submit?.getBoundingClientRect();
+    const actionsRect = actions?.getBoundingClientRect();
+    return {
+      describedBy: modal?.getAttribute('aria-describedby'),
+      activeId: document.activeElement?.id,
+      submitVisible: !!submitRect && submitRect.width > 0 && submitRect.bottom <= window.innerHeight,
+      actionsVisible: !!actionsRect && actionsRect.width > 0 && actionsRect.bottom <= window.innerHeight,
+      statusAtomic: modal?.querySelector('.partner-form-status')?.getAttribute('aria-atomic'),
+    };
+  });
+  if (
+    mobilePartnerState.describedBy !== 'partner-form-copy'
+    || mobilePartnerState.activeId !== 'partner-email'
+    || !mobilePartnerState.submitVisible
+    || !mobilePartnerState.actionsVisible
+    || mobilePartnerState.statusAtomic !== 'true'
+  ) {
+    throw new Error(`Mobile partner modal state was unexpected: ${JSON.stringify(mobilePartnerState)}`);
+  }
+  await page.fill('#partner-name', 'Mobile Partner');
+  await page.fill('#partner-email', 'mobile.partner@example.com');
+  await page.fill('#partner-company', 'Mobile Advisory');
+  await page.selectOption('#partner-type', 'certified_implementer');
+  await page.selectOption('#partner-volume', '1_2_per_quarter');
+  await page.fill('#partner-details', 'Mobile smoke test for partner capture, responsive actions, and accessible live status.');
+  await page.click('#partner-form-modal .partner-form-submit');
+  await page.waitForFunction(() => document.querySelector('#partner-form-status')?.dataset.state === 'success', null, { timeout: 3_000 });
+  const capturedMobilePartnerLead = contactSubmissions.at(-1);
+  if (
+    capturedMobilePartnerLead?.email !== 'mobile.partner@example.com'
+    || capturedMobilePartnerLead?.partner_type !== 'certified_implementer'
+    || !capturedMobilePartnerLead?.details?.includes('responsive actions')
+  ) {
+    throw new Error(`Mobile partner form did not capture expected details: ${JSON.stringify(capturedMobilePartnerLead)}`);
+  }
+  await page.keyboard.press('Escape');
+  await page.waitForFunction(() => document.querySelector('#partner-form-modal')?.hidden, null, { timeout: 3_000 });
+  await expectNoHorizontalOverflow('mobile modal flow');
 
   if (failedRequests.length) {
     throw new Error(`Failed browser requests:\n${failedRequests.join('\n')}`);
