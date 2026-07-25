@@ -1,3 +1,5 @@
+import ThemeToggle from "../components/ThemeToggle";
+
 const programs = [
   {
     number: "01",
@@ -215,6 +217,7 @@ function Header() {
         <a href="#portfolio">Portfolio</a>
         <a href="/people/mehrdad">People</a>
         <a href="#index-case">Index</a>
+        <ThemeToggle />
         <a className="nav-cta" href="#collaborate">
           Collaborate
         </a>
@@ -230,7 +233,9 @@ export default function ResearchPage() {
         <Header />
         <section className="hero">
           <div>
-            <p className="eyebrow">Independent AI research · Chicago</p>
+            <p className="eyebrow">
+              Independent AI research · San Francisco + Chicago
+            </p>
             <h1>
               Environments for agents that <em>learn</em> by doing.
             </h1>
@@ -546,8 +551,8 @@ export default function ResearchPage() {
             <div>
               <p>
                 Open to research collaborations, benchmark partnerships, visiting
-                talks, and Bay Area working sessions around agent environments and
-                reliable AI systems.
+                talks, and working sessions in San Francisco + Chicago around agent
+                environments and reliable AI systems.
               </p>
               <a
                 className="button primary"
@@ -561,7 +566,7 @@ export default function ResearchPage() {
 
         <footer className="footer">
           <span>© 2026 Neural Intelligence Labs</span>
-          <span>Chicago · Bay Area collaborations</span>
+          <span>San Francisco + Chicago</span>
           <a href="#index-case">Explore Index ↑</a>
         </footer>
       </div>

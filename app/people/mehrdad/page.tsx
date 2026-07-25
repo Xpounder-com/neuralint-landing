@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ThemeToggle from "../../components/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "Mehrdad Zaker, Ph.D.",
@@ -22,6 +23,7 @@ export default function MehrdadProfile() {
           <nav className="nav" aria-label="Profile navigation">
             <a href="/research">Research</a>
             <a href="/research#index-case">Index</a>
+            <ThemeToggle />
             <a className="nav-cta" href="https://www.linkedin.com/in/mehrdadzaker">
               Connect
             </a>
@@ -39,7 +41,7 @@ export default function MehrdadProfile() {
               <p className="eyebrow">Researcher profile</p>
               <h1>Mehrdad Zaker, Ph.D.</h1>
               <p className="profile-role">
-                Founder, Neural Intelligence Labs · Chicago
+                Founder, Neural Intelligence Labs · San Francisco + Chicago
               </p>
               <p className="profile-intro">
                 I study how agents learn to act in consequential software
@@ -72,7 +74,7 @@ export default function MehrdadProfile() {
                   <li>Executable RL environments for SWE, terminal, and web agents</li>
                   <li>Reward contracts and verifier robustness</li>
                   <li>Operational memory, state, evidence, and recovery</li>
-                  <li>Open research collaboration between Chicago and the Bay Area</li>
+                  <li>Open research collaboration in San Francisco + Chicago</li>
                 </ul>
               </section>
               <section className="profile-section">
@@ -89,6 +91,7 @@ export default function MehrdadProfile() {
 
         <footer className="footer">
           <span>© 2026 Neural Intelligence Labs</span>
+          <span>San Francisco + Chicago</span>
           <a href="/research">Back to research</a>
         </footer>
       </div>

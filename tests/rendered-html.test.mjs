@@ -32,6 +32,8 @@ test("server-renders the research and maker portfolio", async () => {
   assert.match(html, /Research · Neural Intelligence Labs/);
   assert.match(html, /Environments for agents that/);
   assert.match(html, /Maker(?:&apos;|&#x27;|')s portfolio/i);
+  assert.match(html, /San Francisco \+ Chicago/);
+  assert.match(html, /Switch to dark theme/);
 
   for (const project of [
     "Selva",
@@ -58,6 +60,22 @@ test("uses the shared visual system and web-optimized project artwork", async ()
   assert.doesNotMatch(source, /\/projects\/[^"]+\.png/);
 });
 
+test("supports a persistent dark theme and narrow mobile layouts", async () => {
+  const [toggle, styles] = await Promise.all([
+    readFile(
+      new URL("../app/components/ThemeToggle.tsx", import.meta.url),
+      "utf8",
+    ),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(toggle, /localStorage\.setItem\("nil-theme"/);
+  assert.match(toggle, /prefers-color-scheme: dark/);
+  assert.match(styles, /:root\[data-theme="dark"\]/);
+  assert.match(styles, /@media \(max-width: 620px\)/);
+  assert.match(styles, /@media \(max-width: 480px\)/);
+});
+
 test("server-renders the researcher profile", async () => {
   const response = await render("/people/mehrdad");
   assert.equal(response.status, 200);
@@ -66,4 +84,5 @@ test("server-renders the researcher profile", async () => {
   assert.match(html, /Mehrdad Zaker, Ph\.D\./);
   assert.match(html, /reinforcement-learning/i);
   assert.match(html, /Neural Intelligence Labs/);
+  assert.match(html, /San Francisco \+ Chicago/);
 });
