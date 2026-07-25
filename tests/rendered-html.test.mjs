@@ -61,12 +61,17 @@ test("uses the shared visual system and web-optimized project artwork", async ()
 });
 
 test("supports a persistent dark theme and narrow mobile layouts", async () => {
-  const [toggle, styles] = await Promise.all([
+  const [toggle, styles, exporter, layout] = await Promise.all([
     readFile(
       new URL("../app/components/ThemeToggle.tsx", import.meta.url),
       "utf8",
     ),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(
+      new URL("../scripts/export-github-pages.mjs", import.meta.url),
+      "utf8",
+    ),
+    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
   ]);
 
   assert.match(toggle, /localStorage\.setItem\("nil-theme"/);
@@ -74,6 +79,10 @@ test("supports a persistent dark theme and narrow mobile layouts", async () => {
   assert.match(styles, /:root\[data-theme="dark"\]/);
   assert.match(styles, /@media \(max-width: 620px\)/);
   assert.match(styles, /@media \(max-width: 480px\)/);
+  assert.match(layout, /data-theme-bootstrap/);
+  assert.match(exporter, /data-theme-runtime/);
+  assert.match(exporter, /localStorage\.setItem\("nil-theme"/);
+  assert.match(exporter, /data-theme-bootstrap/);
 });
 
 test("server-renders the researcher profile", async () => {
