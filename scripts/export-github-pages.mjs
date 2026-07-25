@@ -102,7 +102,12 @@ await cp(
   path.join(outputDir, "assets/site.css"),
 );
 
-for (const asset of ["favicon.png", "favicon.svg", "og.webp"]) {
+for (const asset of [
+  "favicon.png",
+  "favicon.svg",
+  "og.webp",
+  "mehrdad-zaker-headshot.jpeg",
+]) {
   await cp(path.join("public", asset), path.join(outputDir, asset));
 }
 

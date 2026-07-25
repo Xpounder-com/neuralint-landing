@@ -85,6 +85,7 @@ test("supports a persistent dark theme and narrow mobile layouts", async () => {
   assert.match(exporter, /data-theme-runtime/);
   assert.match(exporter, /localStorage\.setItem\("nil-theme"/);
   assert.match(exporter, /data-theme-bootstrap/);
+  assert.match(exporter, /mehrdad-zaker-headshot\.jpeg/);
 });
 
 test("server-renders the researcher profile", async () => {
