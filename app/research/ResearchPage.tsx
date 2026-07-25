@@ -521,9 +521,13 @@ export default function ResearchPage() {
 
         <section className="section" id="people">
           <div className="profile-card">
-            <div className="profile-monogram" aria-hidden="true">
-              MZ
-            </div>
+            <img
+              className="profile-portrait"
+              src="/mehrdad-zaker-headshot.jpeg"
+              alt="Mehrdad Zaker"
+              loading="lazy"
+              decoding="async"
+            />
             <div className="profile-copy">
               <p className="eyebrow">Founder & researcher</p>
               <h2>Mehrdad Zaker, Ph.D.</h2>
@@ -537,7 +541,8 @@ export default function ResearchPage() {
                 long-running AI work reliable in practice.
               </p>
               <div className="profile-links">
-                <a href="/people/mehrdad">Full profile</a>
+                <a href="/people/mehrdad">Lab profile</a>
+                <a href="https://www.mehrdadzaker.com">Personal site & writing</a>
                 <a href="https://www.linkedin.com/in/mehrdadzaker">LinkedIn</a>
                 <a href="https://huggingface.co/mzakersh">Hugging Face</a>
               </div>

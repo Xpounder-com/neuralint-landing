@@ -33,9 +33,12 @@ export default function MehrdadProfile() {
         <div className="profile-page-main">
           <div className="profile-page-grid">
             <aside className="profile-page-aside">
-              <div className="profile-monogram" aria-hidden="true">
-                MZ
-              </div>
+              <img
+                className="profile-portrait"
+                src="/mehrdad-zaker-headshot.jpeg"
+                alt="Mehrdad Zaker"
+                decoding="async"
+              />
             </aside>
             <article>
               <p className="eyebrow">Researcher profile</p>
@@ -59,13 +62,12 @@ export default function MehrdadProfile() {
                 </p>
               </section>
               <section className="profile-section">
-                <h2>Background</h2>
+                <h2>Research path</h2>
                 <p>
-                  Mehrdad earned a Ph.D. in computer science from Arizona State
-                  University. His research background spans planning,
-                  reinforcement learning, human–robot collaboration, and
-                  explainable intelligent systems. He founded Neural Intelligence
-                  Labs to connect research with deployable agent infrastructure.
+                  Mehrdad’s work connects planning, reinforcement learning,
+                  human–robot collaboration, and explainable intelligent systems
+                  with deployable agent infrastructure. For his full biography,
+                  career history, and writing, visit his personal site.
                 </p>
               </section>
               <section className="profile-section">
@@ -80,9 +82,9 @@ export default function MehrdadProfile() {
               <section className="profile-section">
                 <h2>Connect</h2>
                 <div className="profile-links">
+                  <a href="https://www.mehrdadzaker.com">Personal site & writing</a>
                   <a href="https://www.linkedin.com/in/mehrdadzaker">LinkedIn</a>
                   <a href="https://huggingface.co/mzakersh">Hugging Face</a>
-                  <a href="https://www.neuralint.io/">Neural Intelligence Labs</a>
                 </div>
               </section>
             </article>

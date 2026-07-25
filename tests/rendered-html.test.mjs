@@ -34,6 +34,8 @@ test("server-renders the research and maker portfolio", async () => {
   assert.match(html, /Maker(?:&apos;|&#x27;|')s portfolio/i);
   assert.match(html, /San Francisco \+ Chicago/);
   assert.match(html, /Switch to dark theme/);
+  assert.match(html, /\/mehrdad-zaker-headshot\.jpeg/);
+  assert.match(html, /Personal site &amp; writing/);
 
   for (const project of [
     "Selva",
@@ -94,4 +96,6 @@ test("server-renders the researcher profile", async () => {
   assert.match(html, /reinforcement-learning/i);
   assert.match(html, /Neural Intelligence Labs/);
   assert.match(html, /San Francisco \+ Chicago/);
+  assert.match(html, /\/mehrdad-zaker-headshot\.jpeg/);
+  assert.match(html, /Personal site &amp; writing/);
 });

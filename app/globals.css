@@ -1057,19 +1057,14 @@ a {
   background: var(--paper-2);
 }
 
-.profile-monogram {
-  display: flex;
-  align-items: flex-end;
+.profile-portrait {
+  display: block;
   width: 100%;
-  aspect-ratio: 1 / 1.1;
-  padding: 28px;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   background: var(--blue);
-  color: var(--inverse-fg);
-  font-family: var(--serif);
-  font-size: clamp(82px, 12vw, 180px);
-  letter-spacing: -0.08em;
-  line-height: 0.7;
+  object-fit: cover;
+  object-position: center 30%;
 }
 
 .profile-copy .eyebrow {
@@ -1278,7 +1273,7 @@ a {
     padding: 42px;
   }
 
-  .profile-monogram {
+  .profile-portrait {
     max-width: 420px;
   }
 
@@ -1505,10 +1500,6 @@ a {
 
   .profile-card {
     padding: 24px;
-  }
-
-  .profile-monogram {
-    font-size: 120px;
   }
 
   .collab {
