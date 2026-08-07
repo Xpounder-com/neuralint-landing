@@ -9,13 +9,13 @@ import {
 
 export const metadata: Metadata = {
   title: "Lady Privacy Policy",
-  description: "How Lady handles family routines, Google Home authorization, devices, and purchases.",
+  description: "How Lady handles local family routines, Cast playback, notifications, and purchases.",
 };
 
 const sections = [
   { id: "summary", label: "Summary" },
   { id: "information", label: "Information handled" },
-  { id: "google-home", label: "Google Home" },
+  { id: "cast", label: "Cast and local network" },
   { id: "purposes", label: "Why data is used" },
   { id: "purchases", label: "Purchases" },
   { id: "children", label: "Children" },
@@ -29,29 +29,30 @@ export default function LadyPrivacyPage() {
       app={ladyApp}
       eyebrow="Lady · Privacy"
       title="A parent stays in control."
-      lede="Lady helps an adult create spoken Google Home routines for the whole family day. It does not listen to the household, record audio, or create child profiles."
-      updated="August 6, 2026"
+      lede="Lady helps an adult save family prompts, receive scheduled iPhone reminders, and play spoken announcements on a nearby Cast speaker. It does not listen to the household, record people, or create child profiles."
+      updated="August 7, 2026"
       sections={sections}
     >
       <LegalSection id="summary" title="Summary">
         <p>
-          Lady stores your routine library on your iPhone and sends the routines you
-          choose to Google Home. NeuralInt does not operate a Lady account system,
-          advertising network, or developer analytics service in the current
-          version.
+          Lady stores your routine library on your iPhone. When you explicitly
+          press Play This Announcement, the iPhone generates temporary speech and
+          shares it only with the Cast receiver you selected on the local network.
+          NeuralInt does not operate a Lady account system, advertising network, or
+          developer analytics service in the current version.
         </p>
         <LegalCallout>
           <strong>Data controller.</strong> Neural Intelligence Labs, operating
           publicly as NeuralInt, is responsible for this policy. Google separately
-          processes Google Account and Home data under its own terms.
+          processes information handled by its Cast SDK under its own terms.
         </LegalCallout>
       </LegalSection>
 
       <LegalSection id="information" title="Information Lady handles">
         <ul>
-          <li>Home, room, and compatible-speaker names and identifiers supplied by Google</li>
-          <li>Routine name, spoken message, schedule, destination, and enabled state</li>
-          <li>The Google Home automation identifier needed to update or delete a routine</li>
+          <li>Routine name, spoken message, type, days, time, and enabled state</li>
+          <li>The selected Cast receiver&apos;s local address while an announcement is loading</li>
+          <li>Local notification authorization and pending reminder requests</li>
           <li>Apple subscription product and entitlement status</li>
         </ul>
         <p>
@@ -61,32 +62,32 @@ export default function LadyPrivacyPage() {
         </p>
       </LegalSection>
 
-      <LegalSection id="google-home" title="Google authorization and Home APIs">
+      <LegalSection id="cast" title="Cast speakers and the local network">
         <p>
-          Google Home is connected only after you choose to authorize it. Google&apos;s
-          flow can process a user identifier to record the OAuth grant and an IP
-          address that may indicate approximate location for security and fraud
-          prevention. Lady never receives your Google password.
+          Lady does not require a Google Account or receive a Google password. The
+          standard Google Cast picker searches for compatible receivers only after
+          you tap the Cast symbol and allow iOS Local Network access.
         </p>
         <p>
-          To list destinations and create automations, the Google Home APIs process
-          authorized structure, room, and device metadata. When you save or test a
-          routine, its message, schedule, destination, and operational identifiers
-          are sent to Google Home. Google may process security, network, and
-          diagnostic information needed to provide the service.
+          After you select a receiver and press Play This Announcement, Lady creates
+          speech on the iPhone. For no more than 90 seconds, the audio is available
+          at a random local URL. Requests from devices other than the selected
+          receiver are rejected. The temporary audio and URL are then discarded.
         </p>
         <p>
-          Local-network access is used only where the Home APIs require it to
-          discover or communicate with compatible devices. Google Home automations
-          are stored and executed in the Google Home ecosystem.
+          Google&apos;s Cast SDK can process an unlinked device identifier,
+          product-interaction information, and diagnostic data for app functionality
+          and analytics under Google&apos;s terms. Lady disables optional Cast analytics
+          logging. NeuralInt does not receive routine text, generated audio, or Cast
+          device names.
         </p>
       </LegalSection>
 
       <LegalSection id="purposes" title="Why information is used">
         <dl className="legal-facts wide">
-          <div><dt>App functionality</dt><dd>Show authorized speakers and create, test, edit, enable, or delete requested routines.</dd></div>
-          <div><dt>Authentication</dt><dd>Maintain the Google authorization grant chosen by the adult user.</dd></div>
-          <div><dt>Security</dt><dd>Support Google OAuth, Apple App Attest, abuse prevention, and reliable service operation.</dd></div>
+          <div><dt>App functionality</dt><dd>Save, edit, pause, and delete routines and generate requested speech on the iPhone.</dd></div>
+          <div><dt>Local notifications</dt><dd>Remind the adult at the days and times they chose.</dd></div>
+          <div><dt>Local network</dt><dd>Find a user-selected Cast receiver and deliver one temporary announcement.</dd></div>
           <div><dt>Purchases</dt><dd>Recognize Apple subscription access and restore eligible purchases.</dd></div>
         </dl>
         <p>
@@ -112,7 +113,7 @@ export default function LadyPrivacyPage() {
       <LegalSection id="children" title="Children and family use">
         <p>
           Lady is designed for parents and guardians, not for children to create
-          accounts. An adult controls the connection, wording, timing, and speakers.
+          accounts. An adult controls the wording, timing, and selected speaker.
           Lady does not activate a microphone or build child profiles.
         </p>
       </LegalSection>
@@ -120,14 +121,14 @@ export default function LadyPrivacyPage() {
       <LegalSection id="retention" title="Sharing, retention, and deletion">
         <p>
           NeuralInt does not sell Lady personal data. Local routines remain until
-          you delete them or uninstall Lady. Google Home automations remain in the
-          authorized Google Home account until deleted.
+          you delete them or uninstall Lady. Pending reminders are removed when you
+          pause or delete a routine. Temporary announcement audio is retained only
+          long enough for the selected receiver to load it.
         </p>
         <p>
-          To remove both copies, delete the routine in Lady while connected before
-          uninstalling, or remove the automation in Google Home afterward. You can
-          revoke Lady&apos;s access in Google Account controls. Apple retains purchase
-          history under its terms.
+          Uninstalling Lady removes its local routines and notifications. Apple
+          retains purchase history under its terms. Google controls any Cast SDK
+          diagnostics it processes under its own privacy terms.
         </p>
       </LegalSection>
 

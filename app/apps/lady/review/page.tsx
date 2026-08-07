@@ -9,7 +9,7 @@ import {
 
 export const metadata: Metadata = {
   title: "Lady App Review Guide",
-  description: "A reproducible App Review path for Lady and its Google Home integration.",
+  description: "A reproducible App Review path for Lady and its local Cast integration.",
 };
 
 const sections = [
@@ -27,8 +27,8 @@ export default function LadyReviewPage() {
       app={ladyApp}
       eyebrow="Lady · App Review"
       title="Review the real family workflow."
-      lede="This guide documents Lady's Google Home path without publishing confidential reviewer credentials. Account access details belong only in App Store Connect Review Notes."
-      updated="August 6, 2026"
+      lede="This guide documents Lady's complete local Cast path. No reviewer account or confidential Google credentials are required."
+      updated="August 7, 2026"
       sections={sections}
     >
       <LegalSection id="identity" title="App identity">
@@ -42,39 +42,38 @@ export default function LadyReviewPage() {
 
       <LegalSection id="requirements" title="Reviewer requirements">
         <ul>
-          <li>A physical iPhone with network and local-network access</li>
-          <li>A Google Account authorized for the review project</li>
-          <li>An accessible Google Home structure and compatible speaker</li>
-          <li>The confidential review account/path supplied in App Store Connect</li>
+          <li>A physical iPhone with Local Network access</li>
+          <li>A Google, Nest, or other Cast-enabled speaker</li>
+          <li>The iPhone and speaker connected to the same Wi-Fi</li>
         </ul>
         <LegalCallout>
-          The Home APIs use Apple App Attest and physical smart-home resources, so a
-          complete production-path review cannot be performed only in Simulator.
+          Simulator demonstrates the routine and playback UI. Hearing the actual
+          announcement requires a physical Cast receiver on the reviewer&apos;s network.
         </LegalCallout>
       </LegalSection>
 
       <LegalSection id="review-path" title="Representative review path">
         <ol>
-          <li>Launch Lady and tap Connect Google Home.</li>
-          <li>Use the review account supplied privately and grant the review Home.</li>
-          <li>Choose a routine template or create a custom family moment.</li>
-          <li>Set the message, days, time, and whole Home or one speaker.</li>
-          <li>Use Test now to hear the selected announcement.</li>
-          <li>Save, disable, edit, and delete the routine.</li>
+          <li>Launch Lady and choose a routine template or custom family moment.</li>
+          <li>Set the message, days, and time.</li>
+          <li>Tap the Cast symbol, allow Local Network access, and choose a speaker.</li>
+          <li>Tap Play This Announcement and hear the on-device-generated speech.</li>
+          <li>Save the routine, then enable, pause, edit, and delete it.</li>
+          <li>Allow notifications to verify the scheduled-reminder behavior.</li>
         </ol>
         <p>
-          Lady creates only user-requested Google Home automations. It does not
-          activate a microphone, record audio, infer behavior, or create a child
-          profile.
+          Lady does not create a cloud automation. Playback is foreground and user
+          initiated. It does not activate a microphone, record people, infer
+          behavior, or create a child profile.
         </p>
       </LegalSection>
 
       <LegalSection id="permissions" title="Why each permission exists">
         <dl className="legal-facts wide">
-          <div><dt>Google authorization</dt><dd>Grant access to one Home without exposing the user&apos;s password to Lady.</dd></div>
-          <div><dt>Local network</dt><dd>Support Google Home discovery and communication where the Home APIs require it.</dd></div>
-          <div><dt>App Attest</dt><dd>Allow Google to verify the authentic app instance and protect Home access.</dd></div>
-          <div><dt>App Group</dt><dd>Support Google Home SDK components that coordinate inside Lady&apos;s signed app family.</dd></div>
+          <div><dt>Local network</dt><dd>Discover Cast receivers and deliver temporary audio only to the receiver the user chose.</dd></div>
+          <div><dt>Notifications</dt><dd>Remind the adult at the local days and times they saved.</dd></div>
+          <div><dt>No microphone</dt><dd>Speech is synthesized from user-entered text; Lady never listens to the household.</dd></div>
+          <div><dt>No sign-in</dt><dd>The Default Media Receiver path requires no Google account authorization or reviewer credentials.</dd></div>
         </dl>
       </LegalSection>
 
@@ -90,8 +89,8 @@ export default function LadyReviewPage() {
 
       <LegalSection id="contact" title="Review contact">
         <p>
-          Confidential credentials and the named review contact are maintained in
-          App Store Connect. General support is available at
+          No app or Google credentials are required. The named review contact is
+          maintained in App Store Connect. General support is available at
           <a href="mailto:mehrdadz@neuralint.io"> mehrdadz@neuralint.io</a>.
         </p>
         <AppPageLinks app={ladyApp} />
