@@ -215,6 +215,7 @@ function Header() {
       <nav className="nav" aria-label="Primary navigation">
         <a href="#programs">Research</a>
         <a href="#portfolio">Portfolio</a>
+        <a href="/apps">Apps</a>
         <a href="/people/mehrdad">People</a>
         <a href="#index-case">Index</a>
         <ThemeToggle />
@@ -572,6 +573,7 @@ export default function ResearchPage() {
         <footer className="footer">
           <span>© 2026 Neural Intelligence Labs</span>
           <span>San Francisco + Chicago</span>
+          <a href="/apps">Apps & policies</a>
           <a href="#index-case">Explore Index ↑</a>
         </footer>
       </div>

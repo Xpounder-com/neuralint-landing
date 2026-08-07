@@ -100,3 +100,43 @@ test("server-renders the researcher profile", async () => {
   assert.match(html, /\/mehrdad-zaker-headshot\.jpeg/);
   assert.match(html, /Personal site &amp; writing/);
 });
+
+test("server-renders the NeuralInt app directory and legal routes", async () => {
+  const expectations = [
+    ["/apps", /Useful software,[\s\S]*made with care/],
+    ["/apps/trailhead/privacy", /Your focus stays yours/],
+    ["/apps/trailhead/support", /Keep moving forward/],
+    ["/apps/trailhead/review", /A clear path through the app/],
+    ["/apps/lady/privacy", /A parent stays in control/],
+    ["/apps/lady/support", /Less repeating/],
+    ["/apps/lady/review", /Review the real family workflow/],
+    ["/apps/terms", /Clear terms for useful software/],
+  ];
+
+  for (const [pathname, pattern] of expectations) {
+    const response = await render(pathname);
+    assert.equal(response.status, 200, pathname);
+    const html = await response.text();
+    assert.match(html, pattern, pathname);
+    assert.match(html, /mehrdadz@neuralint\.io/, pathname);
+  }
+});
+
+test("static export includes every app policy and review route", async () => {
+  const exporter = await readFile(
+    new URL("../scripts/export-github-pages.mjs", import.meta.url),
+    "utf8",
+  );
+
+  for (const pathname of [
+    "/apps/trailhead/privacy",
+    "/apps/trailhead/support",
+    "/apps/trailhead/review",
+    "/apps/lady/privacy",
+    "/apps/lady/support",
+    "/apps/lady/review",
+    "/apps/terms",
+  ]) {
+    assert.match(exporter, new RegExp(pathname.replaceAll("/", "\\/")));
+  }
+});

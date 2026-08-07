@@ -22,6 +22,7 @@ export default function MehrdadProfile() {
           </a>
           <nav className="nav" aria-label="Profile navigation">
             <a href="/research">Research</a>
+            <a href="/apps">Apps</a>
             <a href="/research#index-case">Index</a>
             <ThemeToggle />
             <a className="nav-cta" href="https://www.linkedin.com/in/mehrdadzaker">
@@ -94,6 +95,7 @@ export default function MehrdadProfile() {
         <footer className="footer">
           <span>© 2026 Neural Intelligence Labs</span>
           <span>San Francisco + Chicago</span>
+          <a href="/apps">Apps & policies</a>
           <a href="/research">Back to research</a>
         </footer>
       </div>

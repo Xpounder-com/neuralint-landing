@@ -27,7 +27,12 @@ export default function ThemeToggle() {
 
     document.documentElement.dataset.theme = activeTheme;
     document.documentElement.style.colorScheme = activeTheme;
-    setTheme(activeTheme);
+
+    const animationFrame = window.requestAnimationFrame(() => {
+      setTheme(activeTheme);
+    });
+
+    return () => window.cancelAnimationFrame(animationFrame);
   }, []);
 
   function toggleTheme() {

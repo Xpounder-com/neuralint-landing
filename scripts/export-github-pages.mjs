@@ -7,6 +7,23 @@ const routes = [
   { source: "/", output: "index.html" },
   { source: "/research", output: "research/index.html" },
   { source: "/people/mehrdad", output: "people/mehrdad/index.html" },
+  { source: "/apps", output: "apps/index.html" },
+  { source: "/apps/terms", output: "apps/terms/index.html" },
+  {
+    source: "/apps/trailhead/privacy",
+    output: "apps/trailhead/privacy/index.html",
+  },
+  {
+    source: "/apps/trailhead/support",
+    output: "apps/trailhead/support/index.html",
+  },
+  {
+    source: "/apps/trailhead/review",
+    output: "apps/trailhead/review/index.html",
+  },
+  { source: "/apps/lady/privacy", output: "apps/lady/privacy/index.html" },
+  { source: "/apps/lady/support", output: "apps/lady/support/index.html" },
+  { source: "/apps/lady/review", output: "apps/lady/review/index.html" },
 ];
 
 const staticThemeRuntime = `<script data-theme-runtime>
