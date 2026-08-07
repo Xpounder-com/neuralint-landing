@@ -18,8 +18,8 @@ const apps = [
   {
     ...ladyApp,
     summary:
-      "A parent-operated assistant for gentle Google Home routines throughout the family day.",
-    capabilities: ["Google Home", "Parent operated", "No recordings"],
+      "A parent-operated assistant for local family prompts, scheduled reminders, and one-tap speaker announcements.",
+    capabilities: ["Google Cast", "Local reminders", "No recordings"],
   },
 ];
 

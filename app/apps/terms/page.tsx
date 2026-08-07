@@ -69,7 +69,7 @@ export default function AppTermsPage() {
 
       <LegalSection id="services" title="Third-party services">
         <p>
-          Some features rely on Apple, Google Home, the National Park Service, or
+          Some features rely on Apple, Google Cast, the National Park Service, or
           device and network providers. Their terms and privacy policies apply to
           their services. NeuralInt does not control their availability, account
           decisions, data accuracy, or platform changes.

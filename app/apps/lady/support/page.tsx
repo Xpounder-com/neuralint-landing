@@ -9,12 +9,12 @@ import {
 
 export const metadata: Metadata = {
   title: "Lady Support",
-  description: "Help with Lady family routines, Google Home speakers, schedules, and subscriptions.",
+  description: "Help with Lady family routines, Cast speakers, reminders, and subscriptions.",
 };
 
 const sections = [
   { id: "contact", label: "Contact support" },
-  { id: "connect", label: "Connect Google Home" },
+  { id: "setup", label: "Choose a speaker" },
   { id: "speakers", label: "Speakers" },
   { id: "schedules", label: "Schedules" },
   { id: "announcements", label: "Announcements" },
@@ -28,65 +28,65 @@ export default function LadySupportPage() {
       app={ladyApp}
       eyebrow="Lady · Support"
       title="Less repeating. More rhythm."
-      lede="Lady depends on an adult Google Account, an authorized Home, and a compatible speaker. These checks solve the most common setup issues."
-      updated="August 6, 2026"
+      lede="Lady needs a compatible Cast speaker on the same Wi-Fi. It does not need a Google Account connection. These checks solve the most common setup issues."
+      updated="August 7, 2026"
       sections={sections}
     >
       <LegalSection id="contact" title="Contact support">
         <p>
           Email <a href="mailto:mehrdadz@neuralint.io?subject=Lady%20support">mehrdadz@neuralint.io</a>.
           Include the Lady version, iOS version, iPhone model, and a short
-          description. Do not send passwords, OAuth codes, private family details,
+          description. Do not send passwords, private family details,
           or announcement text you consider sensitive.
         </p>
         <LegalCallout>
-          Lady never needs your Google password. Authorization happens only inside
-          Google&apos;s own sign-in and Home permission flow.
+          Lady never needs your Google password. Speaker discovery uses Apple&apos;s
+          Local Network permission and Google&apos;s standard Cast picker.
         </LegalCallout>
       </LegalSection>
 
-      <LegalSection id="connect" title="Google Home will not connect">
+      <LegalSection id="setup" title="Choose a speaker">
         <ol>
-          <li>Confirm the iPhone is signed into the Google Account that manages the Home.</li>
-          <li>Open Google Home and verify the Home is available.</li>
-          <li>Return to Lady, connect again, and grant the intended structure.</li>
+          <li>Connect the iPhone and speaker to the same Wi-Fi network.</li>
+          <li>Tap the Cast symbol in Lady.</li>
+          <li>Allow Local Network access and choose the receiver you want.</li>
         </ol>
         <p>
-          Google Home APIs require a physical iPhone and Apple App Attest. They do
-          not provide a complete simulator-only connection flow.
+          Lady uses Google&apos;s Default Media Receiver. No Google sign-in or custom
+          receiver registration is required.
         </p>
       </LegalSection>
 
       <LegalSection id="speakers" title="No speakers appear">
         <p>
-          Confirm the speaker is online, belongs to the granted Home, and supports
-          Google Assistant broadcasts. If the device moved rooms or Homes, reconnect
-          so Lady can refresh the authorized structure and device list.
+          Confirm both devices are on the same non-guest Wi-Fi and the speaker
+          supports Google Cast. If Local Network access was denied, open iPhone
+          Settings → Privacy &amp; Security → Local Network and enable Lady.
         </p>
       </LegalSection>
 
-      <LegalSection id="schedules" title="A schedule is rejected">
+      <LegalSection id="schedules" title="A scheduled reminder is missing">
         <p>
-          Add a street address to the Home in the Google Home app, then confirm the
-          selected days and time. Google Home&apos;s recurring clock automations require
-          a properly configured structure.
+          Open iPhone Settings → Notifications → Lady and enable notifications.
+          Lady schedules an iPhone reminder; it cannot begin a new Cast session
+          unattended while the app is closed. iOS allows up to 64 pending Lady
+          reminders, so pause a routine or select fewer days if you reach that limit.
         </p>
       </LegalSection>
 
       <LegalSection id="announcements" title="A reminder does not play">
         <p>
-          Use Test now, confirm the destination speaker is online and audible, and
-          verify the routine is enabled. Check the automation in Google Home if the
-          schedule exists but execution does not occur.
+          Keep Lady open, confirm the Cast symbol shows an active connection, turn
+          up the speaker, and tap Play This Announcement again. If the speaker is on
+          an isolated guest network, move both devices to the same regular Wi-Fi.
         </p>
       </LegalSection>
 
-      <LegalSection id="deletion" title="Delete a routine completely">
+      <LegalSection id="deletion" title="Delete a routine">
         <p>
-          Delete the routine in Lady while connected so the app can remove its Google
-          Home automation. If Lady was already uninstalled or access was revoked,
-          remove the automation directly in Google Home. Uninstalling an app does
-          not automatically delete cloud automations.
+          Delete the routine in Lady to remove its local data and scheduled
+          notifications. Lady does not create a cloud automation or leave a copy in
+          a Google Home account.
         </p>
       </LegalSection>
 
