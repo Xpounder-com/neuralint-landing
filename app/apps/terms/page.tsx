@@ -26,7 +26,7 @@ export default function AppTermsPage() {
       eyebrow="NeuralInt apps · Terms"
       title="Clear terms for useful software."
       lede="These terms apply to Trailhead, Lady, and consumer apps published under the NeuralInt product identity. Apple's licensed application terms also apply to downloads from the App Store."
-      updated="August 6, 2026"
+      updated="August 7, 2026"
       sections={sections}
     >
       <LegalSection id="agreement" title="Agreement and license">
