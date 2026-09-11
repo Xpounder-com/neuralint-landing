@@ -6,6 +6,7 @@ import {
 } from "../../components/AppLegalPage";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/apps/terms/" },
   title: "App Terms of Use",
   description: "Terms for Trailhead, Lady, and other NeuralInt consumer apps.",
 };

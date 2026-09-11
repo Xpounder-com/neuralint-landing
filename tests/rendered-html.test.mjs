@@ -29,8 +29,8 @@ test("server-renders the research and maker portfolio", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /Research · Neural Intelligence Labs/);
-  assert.match(html, /Environments for agents that/);
+  assert.match(html, /AI Agent RL Environments \| Neural Intelligence Labs/);
+  assert.match(html, /Reinforcement learning environments for/);
   assert.match(html, /Maker(?:&apos;|&#x27;|')s portfolio/i);
   assert.match(html, /San Francisco \+ Chicago/);
   assert.match(html, /Switch to dark theme/);
@@ -139,4 +139,10 @@ test("static export includes every app policy and review route", async () => {
   ]) {
     assert.match(exporter, new RegExp(pathname.replaceAll("/", "\\/")));
   }
+});
+
+test("the legacy research route redirects to the canonical homepage", async () => {
+  const response = await render("/research");
+  assert.equal(response.status, 308);
+  assert.equal(new URL(response.headers.get("location"), "http://localhost").href, "http://localhost/");
 });

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ThemeToggle from "../components/ThemeToggle";
 
 const programs = [
@@ -208,10 +209,10 @@ const indexPartnerPaths = [
 function Header() {
   return (
     <header className="topbar">
-      <a className="wordmark" href="/research" aria-label="Neural Intelligence Labs research home">
+      <Link className="wordmark" href="/" aria-label="Neural Intelligence Labs research home">
         <span className="mark" aria-hidden="true" />
         <span>Neural Intelligence Labs</span>
-      </a>
+      </Link>
       <nav className="nav" aria-label="Primary navigation">
         <a href="#programs">Research</a>
         <a href="#portfolio">Portfolio</a>
@@ -238,13 +239,14 @@ export default function ResearchPage() {
               Independent AI research · San Francisco + Chicago
             </p>
             <h1>
-              Environments for agents that <em>learn</em> by doing.
+              Reinforcement learning environments for <em>AI agents.</em>
             </h1>
           </div>
           <div className="hero-copy">
             <p>
-              We study reinforcement-learning environments, planning, and reliable
-              agent systems for software, web, terminal, and operational work.
+              We build and study reinforcement learning environments for software,
+              terminal, and web agents. Our research focuses on resettable tasks,
+              observable state, trustworthy verification, and recovery from failure.
             </p>
             <div className="button-row">
               <a className="button primary" href="#focus">
@@ -315,7 +317,7 @@ export default function ResearchPage() {
                 </div>
                 <div className="spec-row">
                   <span>Target</span>
-                  <span>Public draft · 3 weeks</span>
+                  <span>In development</span>
                 </div>
               </aside>
             </div>

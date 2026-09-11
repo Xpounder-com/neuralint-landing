@@ -1,8 +1,10 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import ThemeToggle from "../components/ThemeToggle";
 import { ladyApp, trailheadApp } from "../components/AppLegalPage";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/apps/" },
   title: "Apps",
   description:
     "Privacy, support, review information, and product policies for NeuralInt apps.",
@@ -32,7 +34,7 @@ export default function AppsPage() {
           <span>NeuralInt</span>
         </a>
         <nav className="nav legal-nav" aria-label="Apps navigation">
-          <a href="/research">Research</a>
+          <Link href="/">Research</Link>
           <a href="mailto:mehrdadz@neuralint.io">Contact</a>
           <ThemeToggle />
         </nav>
@@ -92,7 +94,7 @@ export default function AppsPage() {
         <div className="legal-footer-links">
           <a href="/apps/terms">Terms</a>
           <a href="mailto:mehrdadz@neuralint.io">Support</a>
-          <a href="/research">Research</a>
+          <Link href="/">Research</Link>
         </div>
       </footer>
     </div>

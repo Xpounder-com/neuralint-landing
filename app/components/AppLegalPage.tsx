@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 import ThemeToggle from "./ThemeToggle";
 
@@ -55,7 +56,7 @@ export function AppLegalPage({
         </a>
         <nav className="nav legal-nav" aria-label="App legal navigation">
           <a href="/apps">Apps</a>
-          <a href="/research">Research</a>
+          <Link href="/">Research</Link>
           <ThemeToggle />
         </nav>
       </header>
@@ -93,7 +94,7 @@ export function AppLegalPage({
         <div className="legal-footer-links">
           <a href="/apps/terms">Terms</a>
           <a href="mailto:mehrdadz@neuralint.io">Contact</a>
-          <a href="/research">Research</a>
+          <Link href="/">Research</Link>
         </div>
       </footer>
     </div>

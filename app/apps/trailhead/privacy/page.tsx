@@ -8,6 +8,7 @@ import {
 } from "../../../components/AppLegalPage";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/apps/trailhead/privacy/" },
   title: "Trailhead Privacy Policy",
   description: "How Trailhead handles focus, Screen Time, trail, and purchase data.",
 };

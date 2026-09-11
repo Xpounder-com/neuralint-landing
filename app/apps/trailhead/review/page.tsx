@@ -8,6 +8,7 @@ import {
 } from "../../../components/AppLegalPage";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/apps/trailhead/review/" },
   title: "Trailhead App Review Guide",
   description: "A reproducible App Review path for Trailhead permissions, focus sessions, and Live Activities.",
 };

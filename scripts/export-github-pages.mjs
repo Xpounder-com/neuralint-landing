@@ -5,7 +5,6 @@ const baseUrl = process.env.SITE_EXPORT_URL ?? "http://localhost:3001";
 const outputDir = path.resolve("static-site");
 const routes = [
   { source: "/", output: "index.html" },
-  { source: "/research", output: "research/index.html" },
   { source: "/people/mehrdad", output: "people/mehrdad/index.html" },
   { source: "/apps", output: "apps/index.html" },
   { source: "/apps/terms", output: "apps/terms/index.html" },
@@ -71,7 +70,7 @@ function makeStatic(html) {
 
   return completeDocument
     .replace(
-      /<script\b(?![^>]*data-theme-bootstrap)[^>]*>[\s\S]*?<\/script>/gi,
+      /<script\b(?![^>]*(?:data-theme-bootstrap|type=["']application\/ld\+json["']))[^>]*>[\s\S]*?<\/script>/gi,
       "",
     )
     .replace(/<link\b[^>]*rel=["']modulepreload["'][^>]*\/?>/gi, "")
@@ -130,6 +129,28 @@ for (const asset of [
 
 await writeFile(path.join(outputDir, ".nojekyll"), "");
 await writeFile(path.join(outputDir, "CNAME"), "neuralint.io\n");
-await cp(path.join(outputDir, "index.html"), path.join(outputDir, "404.html"));
+// GitHub Pages serves files rather than application redirects. Keep the old
+// research URL as an immediate redirect document, preserving inbound fragments.
+await mkdir(path.join(outputDir, "research"), { recursive: true });
+await writeFile(path.join(outputDir, "research/index.html"), `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Research has moved | NeuralInt</title>
+<link rel="canonical" href="https://neuralint.io/">
+<script>location.replace("/" + location.search + location.hash);</script>
+<meta http-equiv="refresh" content="0;url=/"></head>
+<body><p>Research is now on the <a href="/">Neural Intelligence Labs homepage</a>.</p></body></html>`);
+
+const canonicalUrls = routes.map(({ source }) =>
+  `https://neuralint.io${source === "/" ? "/" : `${source}/`}`,
+);
+await writeFile(path.join(outputDir, "sitemap.xml"),
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${canonicalUrls.map(url => `  <url><loc>${url}</loc></url>`).join("\n")}\n</urlset>\n`,
+);
+await writeFile(path.join(outputDir, "robots.txt"),
+  "User-agent: *\nAllow: /\n\nSitemap: https://neuralint.io/sitemap.xml\n",
+);
+await writeFile(path.join(outputDir, "404.html"), `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex"><title>Page not found | NeuralInt</title></head>
+<body><main><h1>Page not found</h1><p>Visit <a href="/">Neural Intelligence Labs</a> or the <a href="/apps/">app directory</a>.</p></main></body></html>`);
 
 console.log(`Exported ${routes.length} routes to ${outputDir}`);

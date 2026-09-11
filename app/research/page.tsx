@@ -1,11 +1,5 @@
-import type { Metadata } from "next";
-import ResearchPage from "./ResearchPage";
+import { permanentRedirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Research",
-  alternates: {
-    canonical: "/research",
-  },
-};
-
-export default ResearchPage;
+export default function ResearchRedirect() {
+  permanentRedirect("/");
+}

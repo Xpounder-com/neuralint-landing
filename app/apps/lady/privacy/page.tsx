@@ -8,6 +8,7 @@ import {
 } from "../../../components/AppLegalPage";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/apps/lady/privacy/" },
   title: "Lady Privacy Policy",
   description: "How Lady handles local family routines, Cast playback, notifications, and purchases.",
 };

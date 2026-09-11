@@ -37,6 +37,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Test rendered pages
+        run: node --test tests/rendered-html.test.mjs
+
       - name: Export static site
         run: |
           npm run start -- --port 3001 &
@@ -50,6 +53,9 @@ jobs:
             sleep 1
           done
           exit 1
+
+      - name: Validate exported SEO metadata and discovery
+        run: node scripts/check-seo.mjs
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

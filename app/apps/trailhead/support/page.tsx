@@ -8,6 +8,7 @@ import {
 } from "../../../components/AppLegalPage";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/apps/trailhead/support/" },
   title: "Trailhead Support",
   description: "Help with Trailhead focus sessions, Screen Time, audio, and Lock Screen progress.",
 };

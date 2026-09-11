@@ -1,10 +1,12 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import ThemeToggle from "../../components/ThemeToggle";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/people/mehrdad/" },
   title: "Mehrdad Zaker, Ph.D.",
   description:
-    "Research profile of Mehrdad Zaker, founder of Neural Intelligence Labs.",
+    "Mehrdad Zaker researches reinforcement learning environments, planning, and reliable software agents as founder of Neural Intelligence Labs.",
 };
 
 export default function MehrdadProfile() {
@@ -12,18 +14,18 @@ export default function MehrdadProfile() {
     <main className="profile-page">
       <div className="shell">
         <header className="topbar">
-          <a
+          <Link
             className="wordmark"
-            href="/research"
+            href="/"
             aria-label="Neural Intelligence Labs research home"
           >
             <span className="mark" aria-hidden="true" />
             <span>Neural Intelligence Labs</span>
-          </a>
+          </Link>
           <nav className="nav" aria-label="Profile navigation">
-            <a href="/research">Research</a>
+            <Link href="/">Research</Link>
             <a href="/apps">Apps</a>
-            <a href="/research#index-case">Index</a>
+            <Link href="/#index-case">Index</Link>
             <ThemeToggle />
             <a className="nav-cta" href="https://www.linkedin.com/in/mehrdadzaker">
               Connect
@@ -96,7 +98,7 @@ export default function MehrdadProfile() {
           <span>© 2026 Neural Intelligence Labs</span>
           <span>San Francisco + Chicago</span>
           <a href="/apps">Apps & policies</a>
-          <a href="/research">Back to research</a>
+          <Link href="/">Back to research</Link>
         </footer>
       </div>
     </main>

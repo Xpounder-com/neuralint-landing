@@ -8,6 +8,7 @@ import {
 } from "../../../components/AppLegalPage";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/apps/lady/support/" },
   title: "Lady Support",
   description: "Help with Lady family routines, Cast speakers, reminders, and subscriptions.",
 };
