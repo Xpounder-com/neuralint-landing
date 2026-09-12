@@ -4,6 +4,10 @@ import path from "node:path";
 const baseUrl = process.env.SITE_EXPORT_URL ?? "http://localhost:3001";
 const outputDir = path.resolve("static-site");
 const routes = [
+  { source: "/apps/persian-swipe/privacy", output: "apps/persian-swipe/privacy/index.html" },
+  { source: "/apps/persian-swipe/support", output: "apps/persian-swipe/support/index.html" },
+  { source: "/apps/persian-swipe/review", output: "apps/persian-swipe/review/index.html" },
+
   { source: "/", output: "index.html" },
   { source: "/people/mehrdad", output: "people/mehrdad/index.html" },
   { source: "/apps", output: "apps/index.html" },

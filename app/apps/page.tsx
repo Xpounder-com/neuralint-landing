@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import ThemeToggle from "../components/ThemeToggle";
-import { ladyApp, trailheadApp } from "../components/AppLegalPage";
+import { ladyApp, trailheadApp, persianSwipeApp } from "../components/AppLegalPage";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/apps/" },
@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 };
 
 const apps = [
+  { ...persianSwipeApp, summary: "An offline Persian swipe keyboard that learns from your words and corrections.", capabilities: ["Persian swipe typing", "On-device learning", "No Full Access"] },
   {
     ...trailheadApp,
     summary:
