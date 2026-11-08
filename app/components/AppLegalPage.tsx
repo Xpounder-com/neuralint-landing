@@ -21,6 +21,7 @@ type AppLegalPageProps = {
   lede: string;
   updated: string;
   sections: SectionLink[];
+  hero?: ReactNode;
   children: ReactNode;
 };
 
@@ -45,6 +46,7 @@ export function AppLegalPage({
   lede,
   updated,
   sections,
+  hero,
   children,
 }: AppLegalPageProps) {
   return (
@@ -66,6 +68,7 @@ export function AppLegalPage({
           <p className="eyebrow">{eyebrow}</p>
           <h1>{title}</h1>
           <p className="legal-lede">{lede}</p>
+          {hero}
           <div className="legal-meta">
             <span>Last updated {updated}</span>
             {app ? <span>{app.listingName}</span> : <span>NeuralInt apps</span>}
