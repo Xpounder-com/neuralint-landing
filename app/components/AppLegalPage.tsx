@@ -5,7 +5,7 @@ import ThemeToggle from "./ThemeToggle";
 export type NeuralIntApp = {
   name: string;
   listingName: string;
-  slug: "trailhead" | "lady" | "persian-swipe";
+  slug: "trailhead" | "lady" | "persian-swipe" | "persian-ink";
   accentLabel: string;
 };
 
@@ -137,3 +137,10 @@ export function AppPageLinks({ app }: { app: NeuralIntApp }) {
 }
 
 export const persianSwipeApp: NeuralIntApp = { name: "Persian Swipe", listingName: "Persian Swipe", slug: "persian-swipe", accentLabel: "Persian, in one motion" };
+
+export const persianInkApp: NeuralIntApp = {
+  name: "Persian Ink",
+  listingName: "Persian Ink",
+  slug: "persian-ink",
+  accentLabel: "Your handwriting. Persian text.",
+};

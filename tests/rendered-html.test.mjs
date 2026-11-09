@@ -111,6 +111,9 @@ test("server-renders the NeuralInt app directory and legal routes", async () => 
     ["/apps/lady/privacy", /A parent stays in control/],
     ["/apps/lady/support", /Less repeating/],
     ["/apps/lady/review", /Review the real family workflow/],
+    ["/apps/persian-ink/privacy", /Google ML Kit operational data/],
+    ["/apps/persian-ink/support", /Write, review, insert/],
+    ["/apps/persian-ink/review", /Your handwriting\. Persian text/],
     ["/apps/terms", /Clear terms for useful software/],
   ];
 
@@ -136,6 +139,9 @@ test("static export includes every app policy and review route", async () => {
     "/apps/lady/privacy",
     "/apps/lady/support",
     "/apps/lady/review",
+    "/apps/persian-ink/privacy",
+    "/apps/persian-ink/support",
+    "/apps/persian-ink/review",
     "/apps/terms",
   ]) {
     assert.match(exporter, new RegExp(pathname.replaceAll("/", "\\/")));

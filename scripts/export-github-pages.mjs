@@ -4,6 +4,9 @@ import path from "node:path";
 const baseUrl = process.env.SITE_EXPORT_URL ?? "http://localhost:3001";
 const outputDir = path.resolve("static-site");
 const routes = [
+  { source: "/apps/persian-ink/privacy", output: "apps/persian-ink/privacy/index.html" },
+  { source: "/apps/persian-ink/support", output: "apps/persian-ink/support/index.html" },
+  { source: "/apps/persian-ink/review", output: "apps/persian-ink/review/index.html" },
   { source: "/apps/persian-swipe/privacy", output: "apps/persian-swipe/privacy/index.html" },
   { source: "/apps/persian-swipe/support", output: "apps/persian-swipe/support/index.html" },
   { source: "/apps/persian-swipe/review", output: "apps/persian-swipe/review/index.html" },
