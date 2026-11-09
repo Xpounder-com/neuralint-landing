@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import ThemeToggle from "../components/ThemeToggle";
-import { ladyApp, trailheadApp, persianSwipeApp } from "../components/AppLegalPage";
+import { ladyApp, trailheadApp, persianSwipeApp, persianInkApp } from "../components/AppLegalPage";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/apps/" },
@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 };
 
 const apps = [
+  { ...persianInkApp, summary: "Write Persian with Apple Pencil, review the text and insert it through an offline iPad keyboard.", capabilities: ["Apple Pencil", "Offline recognition", "US$1.99 once"] },
   { ...persianSwipeApp, summary: "An offline Persian swipe keyboard that learns from your words and corrections.", capabilities: ["Persian swipe typing", "On-device learning", "No Full Access"] },
   {
     ...trailheadApp,
@@ -68,6 +69,7 @@ export default function AppsPage() {
                 </div>
               </div>
               <div className="app-card-links">
+                {app.slug === "persian-ink" ? <a href="/apps/persian-ink/">Download & setup</a> : null}
                 <a href={`/apps/${app.slug}/privacy`}>Privacy</a>
                 <a href={`/apps/${app.slug}/support`}>Support</a>
                 <a href={`/apps/${app.slug}/review`}>App Review</a>

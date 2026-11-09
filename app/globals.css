@@ -292,6 +292,19 @@ a {
   background: var(--acid);
 }
 
+.persian-ink-install { margin-top: 28px; }
+.persian-ink-install-facts { color: var(--ink); font-size: 14px; font-weight: 600; }
+.persian-ink-install .button-row { margin-top: 16px; }
+.persian-ink-install .button-row .button { flex: 0 0 auto; }
+.persian-ink-install button { font-family: inherit; }
+.persian-ink-install button:disabled { cursor: not-allowed; opacity: 0.5; transform: none; }
+.persian-ink-install-status { max-width: 660px; margin-top: 14px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+.app-persian-ink .legal-copy a.button { color: var(--paper); text-decoration: none; margin-bottom: 8px; }
+
+@media (max-width: 480px) {
+  .persian-ink-install .button-row { flex-direction: column; align-items: stretch; }
+}
+
 .hero-orbit {
   position: absolute;
   right: -120px;

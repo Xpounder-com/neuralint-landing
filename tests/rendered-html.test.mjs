@@ -112,6 +112,7 @@ test("server-renders the NeuralInt app directory and legal routes", async () => 
     ["/apps/lady/support", /Less repeating/],
     ["/apps/lady/review", /Review the real family workflow/],
     ["/apps/persian-ink/privacy", /Google ML Kit operational data/],
+    ["/apps/persian-ink", /Download on the App Store/],
     ["/apps/persian-ink/support", /Write, review, insert/],
     ["/apps/persian-ink/review", /Your handwriting\. Persian text/],
     ["/apps/terms", /Clear terms for useful software/],
@@ -140,6 +141,7 @@ test("static export includes every app policy and review route", async () => {
     "/apps/lady/support",
     "/apps/lady/review",
     "/apps/persian-ink/privacy",
+    "/apps/persian-ink",
     "/apps/persian-ink/support",
     "/apps/persian-ink/review",
     "/apps/terms",
@@ -152,4 +154,19 @@ test("the legacy research route redirects to the canonical homepage", async () =
   const response = await render("/research");
   assert.equal(response.status, 308);
   assert.equal(new URL(response.headers.get("location"), "http://localhost").href, "http://localhost/");
+});
+
+test("Persian Ink offers a truthful install path while public release is pending", async () => {
+  const html = await (await render("/apps/persian-ink")).text();
+  assert.match(html, /<button[^>]*disabled[^>]*>Download on the App Store<\/button>/);
+  assert.doesNotMatch(html, /href="https:\/\/apps\.apple\.com\/app\/id6832685437"/);
+  assert.match(html, /href="https:\/\/apps\.apple\.com\/app\/testflight\/id899247664"/);
+  assert.match(html, /id="beta"/);
+  assert.match(html, /redemption code/);
+  assert.match(html, /US\$1\.99/);
+  const support = await (await render("/apps/persian-ink/support")).text();
+  assert.ok(support.indexOf('id="enable"') < support.indexOf('id="model"'));
+  assert.match(support, /href="\/apps\/persian-ink\/#beta"/);
+  const directory = await (await render("/apps")).text();
+  assert.match(directory, /href="\/apps\/persian-ink\/">Download &amp; setup/);
 });

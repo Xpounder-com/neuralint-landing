@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AppLegalPage, AppPageLinks, LegalSection, persianInkApp } from "../../../components/AppLegalPage";
+import InstallActions from "../InstallActions";
 
 export const metadata: Metadata = {
   title: "Persian Ink Support",
@@ -20,16 +21,16 @@ export default function PersianInkSupportPage() {
   return (
     <AppLegalPage app={persianInkApp} eyebrow="Persian Ink · Support" title="Write, review, insert."
       lede="Persian handwriting recognition in a keyboard panel for iPad."
-      updated="November 9, 2026" sections={sections}>
-      <LegalSection id="release" title="Release in preparation">
-        <p>Persian Ink’s first App Store release is being prepared. It focuses on handwriting input through an iPad keyboard panel. No account is required.</p>
+      updated="November 9, 2026" sections={sections} hero={<InstallActions />}>
+      <LegalSection id="release" title="Download and install">
+        <p>Version 1.0.0 has been submitted to Apple and is waiting for review. Public download will open after approval and release. Invited testers can install now through TestFlight; <a href="/apps/persian-ink/#beta">follow the installation steps</a>. No account is required inside Persian Ink.</p>
+      </LegalSection>
+      <LegalSection id="enable" title="Enable the keyboard">
+        <p>Open Persian Ink, then add the keyboard in Settings → General → Keyboard → Keyboards → Add New Keyboard → Persian Ink. In a supported text field, hold the globe key and choose Persian Ink.</p>
       </LegalSection>
       <LegalSection id="model" title="Download the Persian model once">
         <p>Connect to the internet. In the Persian Ink keyboard’s Settings page, temporarily enable Allow Full Access. Return to a text field, choose Persian Ink, tap Download Persian model and keep the keyboard open until it confirms that the model is installed.</p>
         <p>Then turn Allow Full Access off in Settings. Recognition works offline after this setup. Full Access permits network activity, including the Google SDK’s operational metrics; handwriting and typed text are not uploaded. If setup fails, check the connection and retry with the keyboard open.</p>
-      </LegalSection>
-      <LegalSection id="enable" title="Enable the keyboard">
-        <p>Open Persian Ink, then add the keyboard in Settings → General → Keyboard → Keyboards → Add New Keyboard → Persian Ink. In a supported text field, hold the globe key and choose Persian Ink.</p>
       </LegalSection>
       <LegalSection id="write" title="Write and insert">
         <p>Use Apple Pencil in the white panel. Finish any missing dots, tap Recognize and review the candidates. Tap one to insert its literal text. The panel clears for your next line.</p>
@@ -43,7 +44,7 @@ export default function PersianInkSupportPage() {
         <p>The keyboard has been tested in Apple Notes and a native text editor. Password fields, some protected inputs and apps that disallow third-party keyboards use Apple’s keyboard. Persian Ink does not replace handwriting recognition on another app’s page canvas and does not convert existing photos or PDFs.</p>
       </LegalSection>
       <LegalSection id="purchase" title="Purchase help">
-        <p>The first release is planned as a one-time US$1.99 App Store download, with no subscription or in-app purchases. Apple displays the final price and currency for your storefront. Billing and refund requests are handled by Apple.</p>
+        <p>The App Store price is set to a one-time US$1.99 download, with no subscription or in-app purchases. Apple displays the final price and currency for your storefront. Billing and refund requests are handled by Apple.</p>
       </LegalSection>
       <LegalSection id="contact" title="Contact support">
         <p>Email <a href="mailto:mehrdadz@neuralint.io">mehrdadz@neuralint.io</a> with the app version, iPad model, iPadOS version and a description of the issue. Share a handwriting example only if you choose to. Do not send passwords or private notes.</p>

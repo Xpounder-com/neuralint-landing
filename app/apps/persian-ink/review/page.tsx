@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AppLegalPage, AppPageLinks, LegalSection, persianInkApp } from "../../../components/AppLegalPage";
+import InstallActions from "../InstallActions";
 
 export const metadata: Metadata = {
   title: "Persian Ink Review Guide",
@@ -15,8 +16,8 @@ const sections = [
 export default function PersianInkReviewPage() {
   return (
     <AppLegalPage app={persianInkApp} eyebrow="Persian Ink · Review guide" title="Your handwriting. Persian text."
-      lede="A handwriting keyboard for iPad, with local recognition and literal text insertion. The first App Store release is in preparation."
-      updated="November 9, 2026" sections={sections}>
+      lede="A handwriting keyboard for iPad, with local recognition and literal text insertion. Version 1.0.0 is waiting for App Review."
+      updated="November 9, 2026" sections={sections} hero={<InstallActions />}>
       <LegalSection id="scope" title="The first release">
         <p>Persian Ink focuses on entering handwriting through its own keyboard panel. It requires no account or sign-in. Photo/PDF recognition and a separate document library are outside this release.</p>
       </LegalSection>
