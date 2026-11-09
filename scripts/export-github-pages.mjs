@@ -113,6 +113,7 @@ await cp(
 await cp("public/projects", path.join(outputDir, "projects"), {
   recursive: true,
 });
+await cp("public/apps", path.join(outputDir, "apps"), { recursive: true });
 
 const compiledAssets = await readdir("dist/client/assets");
 const cssFile = compiledAssets.find((file) => file.endsWith(".css"));

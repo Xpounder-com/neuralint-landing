@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./apps/persian-ink/marketing.css";
 
 :root {
   --ink: #171913;
