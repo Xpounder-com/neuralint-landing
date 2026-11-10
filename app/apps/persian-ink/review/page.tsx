@@ -3,6 +3,7 @@ import { AppLegalPage, AppPageLinks, LegalSection, persianInkApp } from "../../.
 import InstallActions from "../InstallActions";
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true },
   title: "Persian Ink Review Guide",
   description: "The Persian Ink keyboard workflow, offline requirements and honest compatibility limits.",
   alternates: { canonical: "/apps/persian-ink/review/" },

@@ -103,9 +103,9 @@ export default function AppTermsPage() {
           <a href="mailto:mehrdadz@neuralint.io"> mehrdadz@neuralint.io</a>.
         </p>
         <div className="app-page-links">
-          <a href="/apps/trailhead/privacy">Trailhead privacy</a>
-          <a href="/apps/lady/privacy">Lady privacy</a>
-          <a href="/apps">All apps</a>
+          <a href="/apps/trailhead/privacy/">Trailhead privacy</a>
+          <a href="/apps/lady/privacy/">Lady privacy</a>
+          <a href="/apps/">All apps</a>
         </div>
       </LegalSection>
     </AppLegalPage>

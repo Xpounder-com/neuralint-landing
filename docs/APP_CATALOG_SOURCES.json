@@ -1,0 +1,50 @@
+{
+  "verifiedDate": "2026-11-10",
+  "source": "https://itunes.apple.com/lookup?id=6811263515,6798798615,6798800587,6737245343&country=us",
+  "apps": [
+    {
+      "trackId": 6811263515,
+      "trackName": "Persian Swipe",
+      "bundleId": "com.mehrdadzakershahrak.PersianSwipe",
+      "version": "1.2.3",
+      "price": 1.99,
+      "currency": "USD",
+      "minimumOsVersion": "16.0",
+      "trackViewUrl": "https://apps.apple.com/us/app/persian-swipe/id6811263515?uo=4",
+      "artworkUrl512": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/42/66/2d/42662d25-d4a5-d087-35b5-0f85a1935a1a/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg"
+    },
+    {
+      "trackId": 6798798615,
+      "trackName": "Trailhead: Deep Focus",
+      "bundleId": "com.mehrdad.trailhead",
+      "version": "1.1.0",
+      "price": 0.0,
+      "currency": "USD",
+      "minimumOsVersion": "17.0",
+      "trackViewUrl": "https://apps.apple.com/us/app/trailhead-deep-focus/id6798798615?uo=4",
+      "artworkUrl512": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/84/6a/52/846a5209-aa28-37fc-7132-8e85236fa111/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg"
+    },
+    {
+      "trackId": 6798800587,
+      "trackName": "Lady: Family Routines",
+      "bundleId": "com.mehrdadzakershahrak.bedtimebuddy",
+      "version": "1.1.0",
+      "price": 0.0,
+      "currency": "USD",
+      "minimumOsVersion": "17.0",
+      "trackViewUrl": "https://apps.apple.com/us/app/lady-family-routines/id6798800587?uo=4",
+      "artworkUrl512": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/3a/4f/d5/3a4fd5b0-2498-3882-c7a5-3f7a006f119e/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg"
+    },
+    {
+      "trackId": 6737245343,
+      "trackName": "LinkedFull",
+      "bundleId": "com.linkedfull.shop",
+      "version": "1.17.3",
+      "price": 0.0,
+      "currency": "USD",
+      "minimumOsVersion": "13.0",
+      "trackViewUrl": "https://apps.apple.com/us/app/linkedfull/id6737245343?uo=4",
+      "artworkUrl512": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/49/4b/0b/494b0bfb-129a-f6e6-c4c2-383b969227e9/AppIcon-0-1x_U007emarketing-0-11-0-85-220-0.png/512x512bb.jpg"
+    }
+  ]
+}

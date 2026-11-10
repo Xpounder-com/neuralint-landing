@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ThemeToggle from "../components/ThemeToggle";
+import { apps, appUrl } from "../content/apps";
 
 const programs = [
   {
@@ -94,16 +95,16 @@ const projects = [
   {
     code: "NIL–05",
     type: "Personal productivity",
-    title: "Deep Focus",
+    title: "Trailhead: Deep Focus",
     hook: "Protect attention long enough to do work that matters.",
     description:
-      "A calm focus app in development for turning intention into a protected work session—reducing the pull of fragmented attention and making sustained progress visible.",
+      "A focus timer that turns completed work sessions into progress along a simulated national-park trail, with optional Screen Time distraction shielding and Live Activities.",
     story:
       "The idea: focus should feel like a space you enter, not a punishment you endure.",
     image: "/projects/deep-focus.webp",
     alt: "Distraction signals passing through a blue filter into a quiet, protected focus chamber.",
-    status: "In development",
-    href: null,
+    status: "Available on iOS",
+    href: "/apps/trailhead/",
   },
   {
     code: "NIL–06",
@@ -117,7 +118,7 @@ const projects = [
     image: "/projects/linkedfull.webp",
     alt: "Fashion inspiration moving through visual search and multi-store matching into a coordinated virtual outfit.",
     status: "Available on iOS",
-    href: "https://apps.apple.com/us/app/linkedfull/id6737245343",
+    href: "/apps/linkedfull/",
   },
 ];
 
@@ -216,8 +217,8 @@ function Header() {
       <nav className="nav" aria-label="Primary navigation">
         <a href="#programs">Research</a>
         <a href="#portfolio">Portfolio</a>
-        <a href="/apps">Apps</a>
-        <a href="/people/mehrdad">People</a>
+        <a href="/apps/">Apps</a>
+        <a href="/people/mehrdad/">People</a>
         <a href="#index-case">Index</a>
         <ThemeToggle />
         <a className="nav-cta" href="#collaborate">
@@ -411,13 +412,15 @@ export default function ResearchPage() {
               </div>
               <div>
                 <p className="eyebrow">In the workshop</p>
-                <h3>More apps are on the way.</h3>
+                <h3>Explore our apps.</h3>
                 <p>
-                  This is a living maker&apos;s portfolio. New products will join
-                  the same visual system as they move from experiment to prototype
-                  to something people can use.
+                  Persian keyboards, focused work, family routines, and fashion
+                  discovery. Find the app, its requirements, and a clear path to install.
                 </p>
               </div>
+              <nav className="app-discovery-links" aria-label="Explore NeuralInt apps">
+                {apps.map(app => <a href={appUrl(app)} key={app.slug}>{app.name}</a>)}
+              </nav>
               <span className="portfolio-note-mark" aria-hidden="true" />
             </aside>
           </div>
@@ -544,7 +547,7 @@ export default function ResearchPage() {
                 long-running AI work reliable in practice.
               </p>
               <div className="profile-links">
-                <a href="/people/mehrdad">Lab profile</a>
+                <a href="/people/mehrdad/">Lab profile</a>
                 <a href="https://www.mehrdadzaker.com">Personal site & writing</a>
                 <a href="https://www.linkedin.com/in/mehrdadzaker">LinkedIn</a>
                 <a href="https://huggingface.co/mzakersh">Hugging Face</a>
@@ -575,7 +578,10 @@ export default function ResearchPage() {
         <footer className="footer">
           <span>© 2026 Neural Intelligence Labs</span>
           <span>San Francisco + Chicago</span>
-          <a href="/apps">Apps & policies</a>
+          <a href="/apps/">Apps</a>
+          <a href="/about/">About</a>
+          <a href="/contact/">Contact</a>
+          <a href="/privacy/">Privacy</a>
           <a href="#index-case">Explore Index ↑</a>
         </footer>
       </div>

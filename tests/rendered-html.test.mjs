@@ -42,7 +42,7 @@ test("server-renders the research and maker portfolio", async () => {
     "RepoFix",
     "Index",
     "Executable Worlds",
-    "Deep Focus",
+    "Trailhead: Deep Focus",
     "LinkedFull",
   ]) {
     assert.match(html, new RegExp(`>${project}<`));
@@ -168,5 +168,47 @@ test("Persian Ink offers a truthful install path while public release is pending
   assert.ok(support.indexOf('id="enable"') < support.indexOf('id="model"'));
   assert.match(support, /href="\/apps\/persian-ink\/#beta"/);
   const directory = await (await render("/apps")).text();
-  assert.match(directory, /href="\/apps\/persian-ink\/">Download &amp; setup/);
+  assert.match(directory, /href="https:\/\/neuralint\.io\/apps\/persian-ink\/">Download &amp; setup/);
+});
+
+
+test("all five apps have discoverable product destinations and truthful release data", async () => {
+  const response = await render("/apps/catalog.json");
+  assert.equal(response.status, 200);
+  const catalog = await response.json();
+  assert.deepEqual(catalog.apps.map(app => app.slug).sort(), ["lady", "linkedfull", "persian-ink", "persian-swipe", "trailhead"]);
+  const home = await (await render("/")).text();
+  const directory = await (await render("/apps")).text();
+  for (const app of catalog.apps) {
+    assert.ok(home.includes('href="' + app.url + '"'));
+    assert.ok(directory.includes('href="' + app.url + '"'));
+    const page = await render(new URL(app.url).pathname.replace(/\/$/, ""));
+    assert.equal(page.status, 200);
+    const html = await page.text();
+    const entities = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].flatMap(match => {
+      const data = JSON.parse(match[1]); return data["@graph"] ?? [data];
+    });
+    const entity = entities.find(data => data["@type"] === "MobileApplication");
+    assert.equal(entity.url, app.url);
+    if (app.availability === "available") {
+      assert.equal(entity.installUrl, app.downloadUrl);
+      assert.equal(entity.offers.price, app.priceUSD);
+    } else {
+      assert.equal(app.downloadUrl, null);
+      assert.equal(entity.installUrl, undefined);
+      assert.equal(entity.offers, undefined);
+    }
+  }
+  const lady = await (await render("/apps/lady")).text();
+  assert.match(lady, /do not start unattended/);
+  const trailhead = await (await render("/apps/trailhead")).text();
+  assert.match(trailhead, /Further hikes require Trailhead Plus/);
+  const linkedfull = await (await render("/apps/linkedfull")).text();
+  assert.match(linkedfull, /does not establish a garment/);
+});
+
+test("the former Persian Swipe marketing URL redirects to its product page", async () => {
+  const response = await render("/apps/persian-swipe/review");
+  assert.equal(response.status, 308);
+  assert.equal(new URL(response.headers.get("location"), "http://localhost").pathname, "/apps/persian-swipe/");
 });

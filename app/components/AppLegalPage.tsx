@@ -5,7 +5,7 @@ import ThemeToggle from "./ThemeToggle";
 export type NeuralIntApp = {
   name: string;
   listingName: string;
-  slug: "trailhead" | "lady" | "persian-swipe" | "persian-ink";
+  slug: "trailhead" | "lady" | "persian-swipe" | "persian-ink" | "linkedfull";
   accentLabel: string;
 };
 
@@ -52,12 +52,12 @@ export function AppLegalPage({
   return (
     <div className={`app-legal-site ${app ? `app-${app.slug}` : "app-neuralint"}`}>
       <header className="shell topbar legal-topbar">
-        <a className="wordmark" href="/apps" aria-label="NeuralInt apps home">
+        <a className="wordmark" href="/apps/" aria-label="NeuralInt apps home">
           <span className="mark" aria-hidden="true" />
           <span>NeuralInt</span>
         </a>
         <nav className="nav legal-nav" aria-label="App legal navigation">
-          <a href="/apps">Apps</a>
+          <a href="/apps/">Apps</a>
           <Link href="/">Research</Link>
           <ThemeToggle />
         </nav>
@@ -71,7 +71,7 @@ export function AppLegalPage({
           {hero}
           <div className="legal-meta">
             <span>Last updated {updated}</span>
-            {app ? <span>{app.listingName}</span> : <span>NeuralInt apps</span>}
+            {app ? <a href={"/apps/" + app.slug + "/"}>{app.listingName}</a> : <span>NeuralInt apps</span>}
           </div>
         </header>
 
@@ -95,8 +95,11 @@ export function AppLegalPage({
       <footer className="shell footer legal-footer">
         <span>© 2026 Neural Intelligence Labs</span>
         <div className="legal-footer-links">
-          <a href="/apps/terms">Terms</a>
-          <a href="mailto:mehrdadz@neuralint.io">Contact</a>
+          <a href="/about/">About</a>
+          <a href="/contact/">Contact</a>
+          <a href="/privacy/">Website privacy</a>
+          <a href="/apps/terms/">Terms</a>
+          <a href="mailto:mehrdadz@neuralint.io">Email support</a>
           <Link href="/">Research</Link>
         </div>
       </footer>
@@ -128,10 +131,11 @@ export function LegalCallout({ children }: { children: ReactNode }) {
 export function AppPageLinks({ app }: { app: NeuralIntApp }) {
   return (
     <div className="app-page-links" aria-label={`${app.name} information`}>
-      <a href={`/apps/${app.slug}/privacy`}>Privacy</a>
-      <a href={`/apps/${app.slug}/support`}>Support</a>
-      <a href={`/apps/${app.slug}/review`}>App Review guide</a>
-      <a href="/apps/terms">Terms</a>
+      <a href={"/apps/" + app.slug + "/"}>About {app.name}</a>
+      <a href={`/apps/${app.slug}/privacy/`}>Privacy</a>
+      <a href={`/apps/${app.slug}/support/`}>Support</a>
+      <a href={`/apps/${app.slug}/review/`}>App Review guide</a>
+      <a href="/apps/terms/">Terms</a>
     </div>
   );
 }

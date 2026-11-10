@@ -56,6 +56,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="alternate" type="application/json" href="https://neuralint.io/apps/catalog.json" title="NeuralInt app catalog" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -65,6 +66,15 @@ export default function RootLayout({
             name: "Neural Intelligence Labs",
             alternateName: "NeuralInt",
             url: "https://neuralint.io/",
+            description: "A research lab and product studio building focused apps and reinforcement learning environments for AI agents.",
+            logo: "https://neuralint.io/favicon.png",
+            email: "mehrdadz@neuralint.io",
+            contactPoint: {
+              "@type": "ContactPoint",
+              contactType: "customer support",
+              email: "mehrdadz@neuralint.io",
+              url: "https://neuralint.io/contact/",
+            },
             founder: {
               "@type": "Person",
               name: "Mehrdad Zaker",

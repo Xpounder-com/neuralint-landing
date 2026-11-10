@@ -1,37 +1,38 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import ThemeToggle from "../components/ThemeToggle";
-import { ladyApp, trailheadApp, persianSwipeApp, persianInkApp } from "../components/AppLegalPage";
+import { apps, appUrl, siteOrigin } from "../content/apps";
+import StructuredData from "../components/StructuredData";
 
+const title = "Persian Keyboards, Focus & Family Apps";
+const description = "Explore NeuralInt apps: Persian Ink handwriting, Persian Swipe typing, Trailhead focus sessions, Lady family routines, and LinkedFull fashion search.";
 export const metadata: Metadata = {
-  alternates: { canonical: "/apps/" },
-  title: "Apps",
-  description:
-    "Privacy, support, review information, and product policies for NeuralInt apps.",
+  alternates: { canonical: "/apps/" }, title, description,
+  openGraph: { title, description, url: "https://neuralint.io/apps/", type: "website" },
+  twitter: { card: "summary_large_image", title, description },
 };
-
-const apps = [
-  { ...persianInkApp, summary: "Write Persian with Apple Pencil, review the text and insert it through an offline iPad keyboard.", capabilities: ["Apple Pencil", "Offline recognition", "US$1.99 once"] },
-  { ...persianSwipeApp, summary: "An offline Persian swipe keyboard that learns from your words and corrections.", capabilities: ["Persian swipe typing", "On-device learning", "No Full Access"] },
-  {
-    ...trailheadApp,
-    summary:
-      "A deep-focus timer that turns protected work into progress along a national-park trail.",
-    capabilities: ["Screen Time", "Live Activities", "Local-first"],
-  },
-  {
-    ...ladyApp,
-    summary:
-      "A parent-operated assistant for local family prompts, scheduled reminders, and one-tap speaker announcements.",
-    capabilities: ["Google Cast", "Local reminders", "No recordings"],
-  },
-];
+const capabilities: Record<string, string[]> = {
+  "persian-ink": ["Apple Pencil", "Offline after setup", "US$1.99 once"],
+  "persian-swipe": ["Persian swipe typing", "On-device learning", "No Full Access"],
+  trailhead: ["Focus timer", "Screen Time", "Live Activities"],
+  lady: ["Family reminders", "Google Cast", "No recordings"],
+  linkedfull: ["AI fashion search", "Photo inspiration", "Virtual try-on"],
+};
+const directoryData = {
+  "@context": "https://schema.org", "@type": "CollectionPage",
+  "@id": siteOrigin + "/apps/#directory", name: title, description,
+  url: siteOrigin + "/apps/", publisher: { "@id": siteOrigin + "/#organization" },
+  mainEntity: { "@type": "ItemList", itemListElement: apps.map((app, index) => ({
+    "@type": "ListItem", position: index + 1, name: app.listingName, url: appUrl(app),
+  })) },
+};
 
 export default function AppsPage() {
   return (
     <div className="app-legal-site app-neuralint">
+      <StructuredData data={directoryData} />
       <header className="shell topbar legal-topbar">
-        <a className="wordmark" href="/apps" aria-label="NeuralInt apps home">
+        <a className="wordmark" href="/apps/" aria-label="NeuralInt apps home">
           <span className="mark" aria-hidden="true" />
           <span>NeuralInt</span>
         </a>
@@ -60,19 +61,20 @@ export default function AppsPage() {
               <div className="app-card-index">0{index + 1}</div>
               <div>
                 <p className="app-card-label">{app.accentLabel}</p>
-                <h2>{app.name}</h2>
-                <p className="app-card-summary">{app.summary}</p>
+                <h2><a href={appUrl(app)}>{app.listingName}</a></h2>
+                <p className="app-card-summary">{app.description}</p>
                 <div className="app-capabilities">
-                  {app.capabilities.map((capability) => (
+                  {capabilities[app.slug].map((capability) => (
                     <span key={capability}>{capability}</span>
                   ))}
                 </div>
               </div>
               <div className="app-card-links">
-                {app.slug === "persian-ink" ? <a href="/apps/persian-ink/">Download & setup</a> : null}
-                <a href={`/apps/${app.slug}/privacy`}>Privacy</a>
-                <a href={`/apps/${app.slug}/support`}>Support</a>
-                <a href={`/apps/${app.slug}/review`}>App Review</a>
+                <a href={appUrl(app)}>{app.slug === "persian-ink" ? "Download & setup" : "Explore " + app.name}</a>
+                {app.hasLocalPolicies ? <>
+                  <a href={appUrl(app) + "privacy/"}>Privacy</a>
+                  <a href={appUrl(app) + "support/"}>Support</a>
+                </> : <a href={app.storeUrl}>App Store</a>}
               </div>
             </article>
           ))}
@@ -88,14 +90,17 @@ export default function AppsPage() {
             platform permission in plain language, and publish review paths that
             make app behavior inspectable.
           </p>
-          <a className="button secondary" href="/apps/terms">Read app terms</a>
+          <a className="button secondary" href="/apps/terms/">Read app terms</a>
         </section>
       </main>
 
       <footer className="shell footer legal-footer">
         <span>© 2026 Neural Intelligence Labs</span>
         <div className="legal-footer-links">
-          <a href="/apps/terms">Terms</a>
+          <a href="/about/">About</a>
+          <a href="/contact/">Contact</a>
+          <a href="/privacy/">Website privacy</a>
+          <a href="/apps/terms/">Terms</a>
           <a href="mailto:mehrdadz@neuralint.io">Support</a>
           <Link href="/">Research</Link>
         </div>
