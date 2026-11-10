@@ -37,3 +37,5 @@ npm run build
 npm run start -- --port 3001
 npm run export:github-pages
 ```
+
+Planned GitHub ownership change: see [transfer preparation](docs/PERSONAL_TRANSFER.md).

@@ -1,0 +1,56 @@
+{
+  "schema_version": 3,
+  "review_only": true,
+  "applied": false,
+  "operation": "Verify retained Pages binding and unchanged DNS",
+  "canonical_origin": "https://neuralint.io",
+  "hosting": "GitHub Pages",
+  "repository": "mehrdadxzaker/neuralint-landing",
+  "repository_id": 1230268025,
+  "repository_transfer_completed": true,
+  "dns_changes_authorized": false,
+  "domain_claims_authorized": false,
+  "destination_verification_during_preparation": false,
+  "records": [],
+  "records_to_preserve": [
+    {
+      "type": "A",
+      "name": "neuralint.io",
+      "values": [
+        "185.199.108.153",
+        "185.199.109.153",
+        "185.199.110.153",
+        "185.199.111.153"
+      ]
+    },
+    {
+      "type": "AAAA",
+      "name": "neuralint.io",
+      "values": [
+        "2606:50c0:8000::153",
+        "2606:50c0:8001::153",
+        "2606:50c0:8002::153",
+        "2606:50c0:8003::153"
+      ]
+    },
+    {
+      "type": "CNAME",
+      "name": "www.neuralint.io",
+      "values": [
+        "xpounder-com.github.io."
+      ]
+    }
+  ],
+  "verification": [
+    "Confirm the stable repository ID and personal owner",
+    "Confirm the existing neuralint.io Pages binding, enforced HTTPS and approved TLS certificate are retained",
+    "Compare the apex A/AAAA and www CNAME records without modifying them",
+    "Verify root, sitemap, www redirect and app legal/support routes over HTTPS"
+  ],
+  "preserve": [
+    "Existing apex and www DNS records",
+    "Canonical origin and app legal/support routes",
+    "Existing Pages workflow and app configuration",
+    "Xpounder-com/neuralint-platform ownership, Azure trust and runtime settings"
+  ]
+}
