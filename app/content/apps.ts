@@ -23,7 +23,7 @@ export type AppInfo = {
   hasLocalPolicies: boolean;
 };
 
-// Public facts checked against Apple's US listings on November 10, 2026.
+// Public facts checked against Apple's US listings; Persian app icons and Ink availability updated November 11, 2026.
 // Persian Ink availability follows the same gate as its visible download button.
 export const apps: AppInfo[] = [
   {
@@ -31,7 +31,7 @@ export const apps: AppInfo[] = [
     accentLabel: "Your handwriting. Persian text.",
     description: "An offline Persian handwriting keyboard for iPad. Write Farsi with Apple Pencil, review recognition candidates, and insert text into Notes or another supported app.",
     category: "UtilitiesApplication", operatingSystem: "iPadOS 16.0 or later",
-    image: "/apps/persian-ink/app-icon.png", storeUrl: persianInkRelease.appStoreUrl,
+    image: "/apps/persian-ink/app-icon-calligraphy.jpg", storeUrl: persianInkRelease.appStoreUrl,
     available: persianInkRelease.publicDownloadAvailable, price: 1.99,
     pricing: persianInkRelease.publicDownloadAvailable ? "US$1.99, one-time purchase. No subscription. Local App Store prices may vary." : "US$1.99, one-time purchase. No subscription. Public download is pending App Store approval and release.",
     requirements: "An iPad, a compatible Apple Pencil, and a one-time online model download. Recognition then works offline with Allow Full Access off. Protected text fields and apps that disable third-party keyboards are not supported.",
@@ -44,7 +44,7 @@ export const apps: AppInfo[] = [
     accentLabel: "Persian, in one motion",
     description: "An offline Persian and Farsi swipe keyboard for iPhone and iPad, with tap typing, نیم‌فاصله, word suggestions, and learning from your corrections. No Full Access required.",
     category: "UtilitiesApplication", operatingSystem: "iOS 16.0 or later",
-    image: "/apps/persian-swipe/app-icon.jpg",
+    image: "/apps/persian-swipe/app-icon-calligraphy.jpg",
     storeUrl: "https://apps.apple.com/us/app/persian-swipe/id6811263515",
     available: true, price: 1.99,
     pricing: "US$1.99, one-time purchase. No subscriptions or in-app purchases. Local App Store prices may vary.",

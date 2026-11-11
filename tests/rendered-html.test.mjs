@@ -156,19 +156,24 @@ test("the legacy research route redirects to the canonical homepage", async () =
   assert.equal(new URL(response.headers.get("location"), "http://localhost").href, "http://localhost/");
 });
 
-test("Persian Ink offers a truthful install path while public release is pending", async () => {
+test("Persian Ink links to its released App Store app and keeps beta access separate", async () => {
   const html = await (await render("/apps/persian-ink")).text();
-  assert.match(html, /<button[^>]*disabled[^>]*>Download on the App Store<\/button>/);
-  assert.doesNotMatch(html, /href="https:\/\/apps\.apple\.com\/app\/id6832685437"/);
+  assert.match(html, /<a[^>]*href="https:\/\/apps\.apple\.com\/app\/id6832685437"[^>]*>Download on the App Store<\/a>/);
+  assert.doesNotMatch(html, /<button[^>]*disabled[^>]*>Download on the App Store<\/button>/);
+  assert.doesNotMatch(html, /Submitted to Apple|Public download opens after approval/);
   assert.match(html, /href="https:\/\/apps\.apple\.com\/app\/testflight\/id899247664"/);
   assert.match(html, /id="beta"/);
   assert.match(html, /redemption code/);
   assert.match(html, /US\$1\.99/);
   const support = await (await render("/apps/persian-ink/support")).text();
+  assert.match(support, /href="https:\/\/apps\.apple\.com\/app\/id6832685437"/);
+  assert.doesNotMatch(support, /waiting for review|Public download will open after approval/);
   assert.ok(support.indexOf('id="enable"') < support.indexOf('id="model"'));
   assert.match(support, /href="\/apps\/persian-ink\/#beta"/);
   const directory = await (await render("/apps")).text();
   assert.match(directory, /href="https:\/\/neuralint\.io\/apps\/persian-ink\/">Download &amp; setup/);
+  const catalog = await (await render("/apps/catalog.json")).json();
+  assert.equal(catalog.apps.find(app => app.slug === "persian-ink").availability, "available");
 });
 
 

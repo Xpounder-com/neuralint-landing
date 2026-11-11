@@ -10,7 +10,7 @@ export default function InstallActions({ statusId = "persian-ink-release-status"
         ) : (
           <button className="button primary" disabled aria-describedby={statusId}>Download on the App Store</button>
         )}
-        <a className="button secondary" href="/apps/persian-ink/#beta">Install with TestFlight</a>
+        {!persianInkRelease.publicDownloadAvailable && <a className="button secondary" href="/apps/persian-ink/#beta">Install with TestFlight</a>}
         {showSetup && <a className="button secondary" href="/apps/persian-ink/support/#enable">Set up the keyboard</a>}
       </div>
       <p id={statusId} className="persian-ink-install-status">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AppLegalPage, AppPageLinks, LegalSection, persianInkApp } from "../../../components/AppLegalPage";
 import InstallActions from "../InstallActions";
+import { persianInkRelease } from "../release";
 
 export const metadata: Metadata = {
   title: "Persian Ink Support",
@@ -21,9 +22,10 @@ export default function PersianInkSupportPage() {
   return (
     <AppLegalPage app={persianInkApp} eyebrow="Persian Ink · Support" title="Write, review, insert."
       lede="Persian handwriting recognition in a keyboard panel for iPad."
-      updated="November 9, 2026" sections={sections} hero={<InstallActions />}>
+      updated="November 11, 2026" sections={sections} hero={<InstallActions />}>
       <LegalSection id="release" title="Download and install">
-        <p>Version 1.0.0 has been submitted to Apple and is waiting for review. Public download will open after approval and release. Invited testers can install now through TestFlight; <a href="/apps/persian-ink/#beta">follow the installation steps</a>. No account is required inside Persian Ink.</p>
+        <p>Persian Ink is available on the App Store. <a href={persianInkRelease.appStoreUrl}>Download it on your iPad</a>, then open the app and follow the keyboard setup below. It is a one-time {persianInkRelease.price} purchase with no subscription; Apple shows your local price. No account is required inside Persian Ink.</p>
+        <p>Already invited to TestFlight? You can still <a href="/apps/persian-ink/#beta">follow the beta installation steps</a>.</p>
       </LegalSection>
       <LegalSection id="enable" title="Enable the keyboard">
         <p>Open Persian Ink, then add the keyboard in Settings → General → Keyboard → Keyboards → Add New Keyboard → Persian Ink. In a supported text field, hold the globe key and choose Persian Ink.</p>

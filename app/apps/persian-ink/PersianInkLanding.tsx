@@ -8,7 +8,7 @@ const assets = "/apps/persian-ink/";
 function AppIdentity() {
   return (
     <a className="pi-identity" href="/apps/persian-ink/" aria-label="Persian Ink home">
-      <Image src={`${assets}app-icon.png`} alt="" width={52} height={52} unoptimized />
+      <Image src={`${assets}app-icon-calligraphy.jpg`} alt="" width={52} height={52} unoptimized />
       <span>Persian Ink</span>
     </a>
   );
